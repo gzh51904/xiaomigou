@@ -5,7 +5,7 @@ import BaoYouMain from './BaoYouMain'
 
 class BaoYou extends Component{
     render(){
-        return <div class="baoyou">
+        return <div className="baoyou">
            <BaoYouHeader/>
            <BaoYouMain/>
         </div>
