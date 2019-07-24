@@ -1,0 +1,22 @@
+.header{
+    color:white;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    text-align: center;
+    background: -webkit-linear-gradient(left, #F5A957 , #EC4ABB); 
+    background: -o-linear-gradient(right, #F5A957, #EC4ABB); 
+    background: -moz-linear-gradient(right, #F5A957, #EC4ABB); 
+    background: linear-gradient(to right, #F5A957 , #EC4ABB); 
+}
+
+.home-input{
+    display: inline-block;
+    line-height: 50px;
+    width: 80%;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    text-indent: 30px;
+    /* background-image: url('../../../public/fang.png'); */
+}

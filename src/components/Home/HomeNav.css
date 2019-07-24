@@ -1,0 +1,19 @@
+.home_nav {
+    height: 80px;
+    display: flex;
+    width: 100%;
+}
+
+.home_nav li {
+    list-style: none;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column
+
+}
+
+.home_nav li img{
+    width: 50px;
+}
