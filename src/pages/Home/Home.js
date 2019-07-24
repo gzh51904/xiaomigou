@@ -3,6 +3,8 @@ import Header from '../../components/Header/HomeHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import HomeComment from '../Content/HomeContent'
 
+import './Home.scss'
+
 class Home extends React.Component {
     constructor() {
         super();
@@ -23,7 +25,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="Home">
                 <Header />
                 <HomeComment />
                 <Tabbar />
