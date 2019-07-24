@@ -42,13 +42,13 @@ class BaoYouMain extends Component{
     }
 }
     render(){
-
+        let {navs} = this.state
     return <main>
         <nav>  
             <div className="navLeft">
                 <Row>
-                    <Col span={12}>
-                        <h3></h3>
+                    <Col span={12} >
+                        <h3>{{navs}}</h3>
                         <span></span>
                         <img src="" alt=""/>
                     </Col>

@@ -1,6 +1,5 @@
 .baoyou {
     width: 100vw;
-
     .header {
         width: 100vw;
         box-sizing: border-box;
@@ -10,7 +9,7 @@
 
         .goHome {
             position: absolute;
-            background: url(../img/cms-img.png) -32px 0px no-repeat;
+            background: url(../../img/bg.png) -32px 0px no-repeat;
             width: 28px;
             height: 28px;
             background-size: 287px 800px;
@@ -28,7 +27,7 @@
             right: 10px;
             width: 28px;
             height: 28px;
-            background: url(../img/cms-img.png) -243px 0 no-repeat;
+            background: url(../../imgs/bg.png) -243px 0 no-repeat;
             background-size: 287px 800px;
         }
     }

@@ -14,7 +14,7 @@ import 'antd/dist/antd.css';
 import Home from './pages/Home/Home'
 import Classify from './pages/Classify/Classify'
 import Collect from './pages/Collect/Collect'
-import Free from './pages/Free/Free'
+import BaoYou from './pages/BaoYou/index.jsx'
 import Mile from './pages/Mile/Mile'
 
 import zhCN from 'antd/es/locale-provider/zh_CN';
@@ -29,7 +29,7 @@ ReactDOM.render(
         <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/home' component={Home} />
-            <Route path='/free' component={Free} />
+            <Route path='/baoyou' component={BaoYou} />
             <Route path='/classify' component={Classify} />
             <Route path='/collect' component={Collect} />
             <Route path='/mile' component={Mile} />
