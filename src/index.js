@@ -8,6 +8,7 @@ import BaoYou from './baoyou/index'
 
 //引入样式
 import './css/base.css'
+import 'antd/dist/antd.css';
 
 //引入react-redux
 // import {Provider} from 'react-redux'
