@@ -9,6 +9,6 @@ class BaoYou extends Component{
            <BaoYouHeader/>
            <BaoYouMain/>
         </div>
-    }
+    } 
 }
 export default BaoYou
