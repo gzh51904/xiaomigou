@@ -1,0 +1,37 @@
+.contab {
+    height: 35px;
+    line-height: 35px;
+    display: flex;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(94, 94, 94)
+}
+
+.span_fl,
+.span_fr {
+    width: 40px;
+    text-align: center;
+}
+
+.span_fl{
+    color: rgb(255, 0, 242);
+    border-right: 1px solid rgb(255, 0, 242);
+}
+
+.span_box{
+    flex: 1;
+    height: 40px;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+.span_box li{
+    float: left;
+    list-style: none;
+    margin: 0 30px;
+}
+
+ul{
+    width: 580px;
+    overflow: hidden;
+}
