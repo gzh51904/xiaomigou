@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import BaoYouHeader from './BaoYouHeader'
 import BaoYouMain from './BaoYouMain'
-// import './Baoyou.scss'
+import './Baoyou.scss'
 
 class BaoYou extends Component{
     render(){
