@@ -1,0 +1,8 @@
+.layout {
+    max-width: 750px;
+    text-align: left;
+    margin: auto;
+    overflow: hidden;
+    padding-bottom: 44px;
+    display: block;
+}
