@@ -1,4 +1,6 @@
 .header{
+    position: fixed;
+    z-index: 160;
     color:white;
     height: 50px;
     line-height: 50px;
