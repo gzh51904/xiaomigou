@@ -1,0 +1,52 @@
+.glist {
+    display: flex;
+    padding: 10px;
+    height: 140px;
+    border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.img_box {
+    width: 150px;
+}
+
+.img_box img {
+    width: 120px;
+}
+
+.teset_box {
+    flex: 1;
+    margin: 0;
+}
+
+h3 {
+    text-indent: 20px;
+    font-size: 14px;
+    background: url('https://cmsstatic.dataoke.com//wap_new/common/images/is_tianmao.svg?v=2019-07-17') no-repeat;
+    background-size: 20px;
+}
+
+.list_2 {
+    font-size: 12px;
+    margin-top: 25px;
+    margin-bottom: 6px;
+}
+
+.list_2 strong {
+    float: right;
+}
+
+.list_2 i {
+    color: red;
+}
+
+.list_3 {
+    font-size: 12px;
+    color: red;
+}
+
+.list_3 i{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* .list_3  */

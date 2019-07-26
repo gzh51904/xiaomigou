@@ -1,4 +1,8 @@
 .header{
+    /* position: fixed; */
+    /* z-index: 99; */
+    top: 0;
+    left: 0;
     color:white;
     height: 50px;
     line-height: 50px;
@@ -20,3 +24,4 @@
     text-indent: 30px;
     /* background-image: url('../../../public/fang.png'); */
 }
+

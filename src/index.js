@@ -13,6 +13,8 @@ import Classify from './pages/Classify/Classify'
 import Collect from './pages/Collect/Collect'
 import Free from './pages/Free/Free'
 import Mile from './pages/Mile/Mile'
+import GoodsDetails from './pages/GoodsDetails/GoodsDetails'
+
 
 import zhCN from 'antd/es/locale-provider/zh_CN';
 import moment from 'moment';
@@ -29,6 +31,9 @@ ReactDOM.render(
             <Route path='/free' component={Free} />
             <Route path='/classify' component={Classify} />
             <Route path='/collect' component={Collect} />
+            {/* <Switch> */}
+                <Route path='/goodsdetails/:goodsid/:id' component={GoodsDetails} />
+            {/* </Switch> */}
             <Route path='/mile' component={Mile} />
         </Switch>
     </Router>

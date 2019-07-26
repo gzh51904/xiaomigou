@@ -6,21 +6,23 @@ class Banner extends React.Component {
     constructor() {
         super();
         this.state = {
-            imgAry: []
+            imgAry: [],
         }
-
     }
 
+
     async componentWillMount() {
+        
         const { data } = await axios.get('http://cmsjapi.dataoke.com/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
         // console.log(data.data.config)
         this.setState({
-            imgAry: data.data.config
+            imgAry: data.data.config,
         })
     }
 
     render() {
         return (
+            
             <Carousel autoplay >
                 {
                     this.state.imgAry.map(item => {

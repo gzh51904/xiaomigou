@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     overflow: hidden;
+    background: white;
     border-bottom: 5px solid rgb(237, 237, 237);
 }
 .home_express img{

@@ -1,7 +1,7 @@
 import React from 'react'
 import './HomeList.css'
 import Axios from 'axios';
-import Banner from './Banner'
+import Banner from './HomeBanner'
 
 class HomeList extends React.Component {
     constructor() {
@@ -10,7 +10,7 @@ class HomeList extends React.Component {
             newdata_one: [],
             newdata_two: [],
             newdata_three: [],
-            imgList_one: '',
+            imgList_one: [],
             imgList_two: '',
             imgList_three: '',
             timeString: '',
@@ -29,6 +29,8 @@ class HomeList extends React.Component {
     async componentWillMount() {
         const { data } = await Axios.get('http://cmsjapi.dataoke.com/api/category/product/model-detail-by-model-id?entityId=3&modelId=17&source=3&userId=427272');
 
+        // console.log(data.data.config[0].imgList)
+
         let time = parseInt((data.data.config[1].downTime.time - new Date()) / 1000);
         this.setState({
             newdata_one: data.data.config[0],
@@ -42,24 +44,20 @@ class HomeList extends React.Component {
         })
     }
 
-    componentDidMount() {
-        // this.time();
-        console.log(this.state.newdata)
-    }
 
     // 倒计时
     time = () => {
-       
+
         // 清除可能存在的定时器
         clearInterval(this.timer)
         // 创建（重新赋值）定时器
-        
+
         this.timer = setInterval(() => {
             // 当前时间回显-1
             this.setState({
                 time: this.state.newdata - 1
             }, () => {
-                console.log(this.state.newdata);
+                // console.log(this.state.newdata);
                 // 判断修改后时间是否小于1达到最小时间
                 if (this.state.newdata <= 0) {
                     // 清除定时器
@@ -80,7 +78,8 @@ class HomeList extends React.Component {
                     <h3>{this.state.newdata_one.name}</h3>
                     <p>{this.state.newdata_one.dname}</p>
                     <div className="banner">
-                        <Banner imgList_one={this.state.imgList_one} />
+                        <Banner one={this.state.imgList_one} />
+                        {/* {console.log(this.state.imgList_one)} */}
                     </div>
                 </div>
                 <div className="box_fr">
