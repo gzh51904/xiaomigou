@@ -15,7 +15,12 @@ function TouShi(data) {
                         </div>
                     ))
                     }
-
+                     <div className="swiper-slide end">
+                           <p>
+                               <span>共{data.data.length}件商品</span>
+                               <i></i>
+                           </p>
+                        </div>
                 </div>
             </div>
         </div>

@@ -10,6 +10,9 @@ import { HashRouter as Router, Route, Redirect, Switch, withRouter } from "react
 //引入样式
 import 'antd/dist/antd.css';
 import './css/base.css'
+
+//全局引入swiper样式
+import 'swiper/dist/css/swiper.min.css'
 /*  */
 import Home from './pages/Home/Home'
 import Classify from './pages/Classify/Classify'

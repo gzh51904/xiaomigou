@@ -8,7 +8,8 @@
   <meta name="theme-color" content="#000000" />
 
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.js"></script>
   
   <title>React App</title>
 </head>
@@ -19,16 +20,15 @@
 
   
 </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.js"></script>
-  <script>
-    var swiper = new Swiper('.swiper-container', {
-      slidesPerView: 3,
-      // spaceBetween: 30,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-    });
-    
-    </script>
 </html>
+<script>
+   new Swiper('.swiper-container', {
+                slidesPerView:'auto',  
+                initialSlide: -1,
+                observer: true,
+                observeParents: true
+            });
+
+
+            
+</script>

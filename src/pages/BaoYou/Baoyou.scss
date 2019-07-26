@@ -189,6 +189,7 @@
             .swiper-container{
                 height: 177px;
                 .swiper-wrapper{
+                    width: auto;
                     height: 177px;
                     .swiper-slide{
                         width: 121px;
@@ -207,17 +208,75 @@
                             color:red;
                         }
                     }
+                    .end{
+                        background: #FFF3F3;
+                        height: 167px;
+                        margin-right: 10px;
+                        p{
+                            line-height: 190px;
+                            margin: 0 auto;
+                            display: block;
+                            height: 100%;
+                            background: url(../../imgs/baoyou_more.png) 50% 30% no-repeat;
+                            background-size:40px;
+                            text-align: center;
+                        }
+                        i{
+                            background: #F1F1F1;
+                            width: 30px;
+                            height: 30px;
+                            display: inline-block;
+                            position: absolute;
+                            background: url(../../imgs/baoyou_next.png) ;
+                            background-size:30px;
+                            left: 50%;
+                            margin-left: -15px;
+                            top:65%;
+                        }
+                    }
                 }
+               
             }
         }
         //商品列表
         .goodlist{
+            width: 100vw;
+            text-align: center;
+
             h3{
-                height: 30px;
+              
                 line-height: 30px;
                 text-align: center;
                 color: #FA4EBE;
             }
+            .list{
+                margin: 0 auto;
+                max-width: 100vw;
+                width: 100vw;
+                background: #F1F1F1;
+                li{
+                width: 49vw;
+                
+                    height: 42vh;
+                    background: red;
+                    float: left;
+                    list-style: none;
+                    img{
+                        width: 100%;
+                    }
+                    p{
+                        white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            padding: 0 10px;
+                    }
+                }
+                li:nth-child(2n){
+                    margin-left: 3px;
+                    margin-bottom: 3px;
+                }
+            }
+
         }
     }
 }
