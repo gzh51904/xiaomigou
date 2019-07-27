@@ -3,8 +3,6 @@ import CollectHeader from '../../components/Header/CollectHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import axios from 'axios'
 
-import {Switch,Route} from 'react-router-dom'
-
 import W from './components/w.js'
 
 import Y from './components/y.js'
@@ -16,21 +14,17 @@ class Collect extends React.Component {
             isLgn : false
         }
     };
-   async componentWillMount(){
-       console.log("aaa");
-       
+    async componentWillMount(){
         let {data} = await axios.get('http://localhost:1904/verify')
-        console.log(this.props,data);
         let {code,msg} = data;
         if(code==401 && msg=="unauthorized"){
-            // this.props.history.push({
-            //     pathname:this.props.match.url + "/w"
-            // })
             this.isLgn = false
+        }else if(code==1000){
+            this.isLgn = true
         }
     }
     render() {
-        let {url} = this.props.match
+        
         return (
             <div style={{overflow:"hidden"}}>
                 <CollectHeader/>
@@ -39,7 +33,7 @@ class Collect extends React.Component {
                     <Route/>
                 </Switch> */}
                 {
-                    this.state.isLgn ? <Y/> : <W/>
+                   this.state.isLgn=true ? <Y/> : <W/>
                 }
                 <Tabbar/>
             </div>
