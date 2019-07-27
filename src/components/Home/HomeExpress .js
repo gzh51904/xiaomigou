@@ -12,7 +12,7 @@ class HomeExpress extends React.Component {
 
 
     async componentWillMount() {
-        const { data } = await axios.get('http://cmsjapi.dataoke.com/api/category/product/model-detail-by-model-id?entityId=3&modelId=13&source=3&userId=427272')
+        const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=13&source=3&userId=427272')
         // console.log(data.data.config.list[0].name);
 
         this.setState({

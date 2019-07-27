@@ -56,7 +56,7 @@ axios.interceptors.request.use((config)=>{
     // //     }
     // //   })
     // }
-    console.log(res);
+    // console.log(res);
     
     return res;
   }, error=>{

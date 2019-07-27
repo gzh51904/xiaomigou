@@ -27,7 +27,7 @@ class HomeList extends React.Component {
     }
 
     async componentWillMount() {
-        const { data } = await Axios.get('http://cmsjapi.dataoke.com/api/category/product/model-detail-by-model-id?entityId=3&modelId=17&source=3&userId=427272');
+        const { data } = await Axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=17&source=3&userId=427272');
 
         let time = parseInt((data.data.config[1].downTime.time - new Date()) / 1000);
         this.setState({

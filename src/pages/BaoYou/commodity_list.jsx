@@ -18,13 +18,13 @@ class CommodityList extends Component {
     }
     
     async componentWillMount() {
-        let { data } = await axios.get('http://localhost:1904/index.php?r=nine/listajax&n_id=58&page=1&cac_id=');
+        let { data } = await axios.get('http://localhost:1904/aa/index.php?r=nine/listajax&n_id=58&page=1&cac_id=');
         let fengqiang = data.data.data.map(item => item)
-        let  data2= await axios.get('http://localhost:1904/index.php?r=nine/listajax&page=1&storey=1&n_id=15569&cac_id=');
+        let  data2= await axios.get('http://localhost:1904/aa/index.php?r=nine/listajax&page=1&storey=1&n_id=15569&cac_id=');
         let toushi = data2.data.data.data.map(item=>item);
-        let data3 = await axios.get('http://localhost:1904/index.php?r=nine/listajax&page=1&storey=1&n_id=17292&cac_id=');
+        let data3 = await axios.get('http://localhost:1904/aa/index.php?r=nine/listajax&page=1&storey=1&n_id=17292&cac_id=');
         let bijiben = data3.data.data.data.map(item=>item);
-        let data4 = await axios.get('http://localhost:1904/index.php?r=nine/listajax&page=1&storey=1&n_id=15169&cac_id=');
+        let data4 = await axios.get('http://localhost:1904/aa/index.php?r=nine/listajax&page=1&storey=1&n_id=15169&cac_id=');
         let neiku = data4.data.data.data.map(item=>item);
         this.setState({
             fengqiang,

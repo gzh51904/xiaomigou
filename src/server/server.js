@@ -13,10 +13,21 @@ app.use(allRouter);
 app.use(express.static('./'));
 
 // 代理服务器
-app.use('/*',proxy({
+app.use('/aa',proxy({
     target:'http://www.smallmi.com/',
     changeOrigin:true,
-    '^/':'/'
+    pathRewrite:{
+        '^/aa':'/'
+    }
+}))
+
+app.use('/api',proxy({
+    target:'http://cmsjapi.dataoke.com/api',
+    changeOrigin:true,
+    pathRewrite:{
+        '^/api':'/'
+    }
+    
 }))
 
 

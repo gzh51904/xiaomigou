@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import Header from '../../components/Header/HomeHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import HomeComment from '../Content/HomeContent'
@@ -13,16 +14,15 @@ class Home extends React.Component {
         }
     }
 
-    // async componentWillMount() {
-    //     const { data } = await axios.get('http://cmsjapi.dataoke.com/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
+    async componentWillMount() {
+        const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
 
-    //     console.log(data.data.config);
-
-    //     this.setState({
-    //         imgUrlAry: data.data.config
-    //     })
-    // }
-
+        console.log(data);
+        this.setState({
+            imgUrlAry: data.data.config
+        })
+    }
+    
     render() {
         return (
             <div className="Home">

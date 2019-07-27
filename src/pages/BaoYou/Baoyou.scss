@@ -40,7 +40,8 @@
     }
 
     main {
-        margin-bottom:50px; 
+        margin-bottom: 50px;
+            // height: 200px;
         // 图片导航栏
         nav {
             height: 209px;
@@ -143,7 +144,7 @@
                 background: #fff;
                 margin-top: 10px;
                 padding: 0 5px;
-                width: 100%;
+                width: 100vw;
                 white-space: nowrap;
                 overflow-x: auto;
                 line-height: 50px;
@@ -162,6 +163,14 @@
                 }
             }
 
+            .fix {
+                position: fixed;
+                top: 44px;
+                // left: 0;
+                z-index: 100;
+                margin: 0;
+            }
+
             //清除滚动条
             ul::-webkit-scrollbar {
                 display: none;
@@ -172,107 +181,209 @@
         .commodity_list {
             background: #F1F1F1;
             padding-bottom: 5px;
-            .list1,.list2,.list3,.list4{
+
+            .list1,
+            .list2,
+            .list3,
+            .list4 {
                 background: #fff;
                 margin-bottom: 1px;
             }
+
             h3 {
                 span {
                     width: 100px;
                     margin: 0 auto;
-                    color:#FC436D
+                    color: #FC436D
                 }
+
                 text-align: center;
                 height: 40px;
                 line-height: 40px;
             }
-            .swiper-container{
+
+            .swiper-container {
                 height: 177px;
-                .swiper-wrapper{
+
+                .swiper-wrapper {
                     width: auto;
                     height: 177px;
-                    .swiper-slide{
+
+                    .swiper-slide {
                         width: 121px;
                         height: 177px;
-                        margin-left: 10px; 
-                        img{
+                        margin-left: 10px;
+
+                        img {
                             width: 100%;
                         }
-                        p{
+
+                        p {
                             white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
-                            
+
                         }
-                        span{
-                            color:red;
+
+                        span {
+                            color: red;
                         }
                     }
-                    .end{
+
+                    .end {
                         background: #FFF3F3;
                         height: 167px;
                         margin-right: 10px;
-                        p{
+
+                        p {
                             line-height: 190px;
                             margin: 0 auto;
                             display: block;
                             height: 100%;
                             background: url(../../imgs/baoyou_more.png) 50% 30% no-repeat;
-                            background-size:40px;
+                            background-size: 40px;
                             text-align: center;
                         }
-                        i{
+
+                        i {
                             background: #F1F1F1;
                             width: 30px;
                             height: 30px;
                             display: inline-block;
                             position: absolute;
-                            background: url(../../imgs/baoyou_next.png) ;
-                            background-size:30px;
+                            background: url(../../imgs/baoyou_next.png);
+                            background-size: 30px;
                             left: 50%;
                             margin-left: -15px;
-                            top:65%;
+                            top: 65%;
                         }
                     }
                 }
-               
+
             }
         }
+
         //商品列表
-        .goodlist{
+        .goodlist {
             width: 100vw;
             text-align: center;
 
-            h3{
-              
+            h3 {
+
                 line-height: 30px;
                 text-align: center;
                 color: #FA4EBE;
             }
-            .list{
+
+            .list {
                 margin: 0 auto;
                 max-width: 100vw;
                 width: 100vw;
                 background: #F1F1F1;
-                li{
-                width: 49vw;
-                
+
+                li {
+                    width: 49vw;
+
                     height: 42vh;
                     background: #fff;
                     float: left;
                     list-style: none;
-                    img{
+
+                    img {
                         width: 100%;
                     }
-                    p{
-                        white-space: nowrap;
+
+                    .content {
+                        height: 100px;
+
+                        .top {
+                            white-space: nowrap;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             padding: 0 10px;
-                            color:#5F5F5F;
+                            color: #5F5F5F;
+                            margin-top: 5px;
+                        }
+
+                        .mid {
+                            height: 30px;
+                            line-height: 30px;
+
+                            span {
+                                float: left;
+                                width: 50%;
+                                font-size: 12px;
+                            }
+
+                            i {
+                                font-style: normal;
+                                float: left;
+                                width: 50%;
+                                font-size: 12px;
+
+                                em {
+                                    font-style: normal;
+                                    color: red;
+                                }
+                            }
+                        }
+
+                        .btm {
+                            height: 40px;
+                            color: red;
+                            padding-top: 10px;
+
+                            span {
+                                float: left;
+                                width: 50%;
+                            }
+
+                            i {
+                                float: left;
+                                width: 50%;
+
+                                em {
+                                    display: inline-block;
+                                    margin-bottom: 10px;
+                                    color: red;
+                                    font-style: normal;
+                                    font-size: 12px;
+                                    width: 60px;
+                                    border: 1px solid red;
+                                    border-radius: 5px;
+                                    position: relative;
+                                }
+                            }
+
+                            em:before,
+                            em:after {
+                                position: absolute;
+                                left: -2px;
+                                top: 49%;
+                                margin-top: -3px;
+                                background: #fff;
+                                display: block;
+                                width: 7px;
+                                height: 10px;
+                                content: "";
+                                border-radius: 0 10px 10px 0;
+                                border: 1px solid #FC4D52;
+                                border-left: none;
+
+                            }
+
+                            em:after {
+                                left: 53px;
+                                border: 1px solid #FC4D52;
+                                border-right: none;
+                                border-radius: 10px 0 0 10px;
+                            }
+                        }
+
                     }
                 }
-                li:nth-child(2n){
+
+                li:nth-child(2n) {
                     margin-left: 3px;
                     margin-bottom: 3px;
                 }
