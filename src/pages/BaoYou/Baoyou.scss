@@ -258,7 +258,7 @@
                 width: 49vw;
                 
                     height: 42vh;
-                    background: red;
+                    background: #fff;
                     float: left;
                     list-style: none;
                     img{
@@ -269,6 +269,7 @@
                             overflow: hidden;
                             text-overflow: ellipsis;
                             padding: 0 10px;
+                            color:#5F5F5F;
                     }
                 }
                 li:nth-child(2n){
