@@ -41,21 +41,16 @@ axios.interceptors.request.use((config)=>{
     // 请求失败进入这个回调
     return Promise.reject(error);
   });
-  
+
   // 响应拦截：校验token
   axios.interceptors.response.use(res=>{
+
     // 判断token是否校验成功
     // 校验不成功：过期或被伪造
-    // if(axios && res.data.code == 401){
-    //     console.log(Route,Router);
-        
-    // //   router.replace({
-    // //     path:'/login',
-    // //     query:{
-    // //       redirectTo:router.currentRoute.fullPath
-    // //     }
-    // //   })
-    // }
+    if(res.data.msg == "unauthorized" && res.data.code == 401){
+      console.log(res);
+    localStorage.removeItem("Authorization")
+    }
     // console.log(res);
     
     return res;
