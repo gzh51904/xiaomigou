@@ -14,11 +14,14 @@ import './css/base.css'
 //全局引入swiper样式
 import 'swiper/dist/css/swiper.min.css'
 /*  */
+// /*  */›
 import Home from './pages/Home/Home'
 import Classify from './pages/Classify/Classify'
 import Collect from './pages/Collect/Collect'
 import BaoYou from './pages/BaoYou/index.jsx'
 import Mile from './pages/Mile/Mile'
+import GoodsDetails from './pages/GoodsDetails/GoodsDetails'
+
 import Login from './pages/Mile/user/login'
 import Reg from './pages/Mile/user/reg'
 import zhCN from 'antd/es/locale-provider/zh_CN';
@@ -74,6 +77,10 @@ ReactDOM.render(
             <Route path='/home' component={Home} />
             <Route path='/baoyou' component={BaoYou} />
             <Route path='/classify' component={Classify} />
+            <Route path='/collect' component={Collect} />
+            {/* <Switch> */}
+                <Route path='/goodsdetails/:goodsid/:id' component={GoodsDetails} />
+            {/* </Switch> */}
             <Route path='/collect' component={Collect}/>
             <Route path='/mile' component={Mile} />
             <Route path='/login' component={Login} />

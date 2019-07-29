@@ -1,0 +1,27 @@
+.main{
+    height: 100%;
+    width: 100%;
+    /* background: orangered; */
+    border: 1px solid rgb(249, 249, 249);
+    display: flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items: center;
+}
+
+header{
+    width: 100%;
+    height: 50px;
+    background: orchid
+}
+
+main{
+    width: 100%;
+    flex: 1;
+    background: rgb(60, 12, 12);
+}
+footer{
+    width: 100%;
+    height: 50px;
+    background: yellow
+}
