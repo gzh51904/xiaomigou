@@ -1,7 +1,7 @@
 import React from 'react'
 
 function BiJiBen(data) {
-        return <div className="list3">
+        return <div className="list">
             <h3>
                 <span>笔记本</span>
             </h3>

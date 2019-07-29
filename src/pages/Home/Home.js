@@ -11,7 +11,7 @@ import XiangQing from '../../components/Header/XiangQingHeader'
 // import {  withRouter } from 'react-router-dom';
 
 
-import axios from 'axios'
+// import axios from 'axios'
 
 class Home extends React.Component {
     constructor() {
@@ -100,7 +100,7 @@ class Home extends React.Component {
             imgUrlAry: data.data.config
         })
     }
-    }
+    
     
     render() {
         return (

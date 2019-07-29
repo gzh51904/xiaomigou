@@ -1,7 +1,7 @@
 import React from 'react'
 
 function TouShi(data) {
-        return <div className="list2">
+        return <div className="list">
             <h3>
                 <span>精致头饰</span>
             </h3>

@@ -2,7 +2,7 @@ import React from 'react'
 
 function NeiKu(data) {
      
-        return <div className="list4">
+        return <div className="list">
             <h3>
                 <span>女士内裤</span>
             </h3>
