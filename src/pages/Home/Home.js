@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../components/Header/HomeHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import HomeComment from '../Content/HomeContent'
-// import './Home.css'
+import './Home.css'
 import GoodsPage from '../../components/GoodsPage/GoodsPage'
 import GoodList from '../../components/Goods/GoodsList'
 import XiangQing from '../../components/Header/XiangQingHeader'
@@ -29,16 +29,10 @@ class Home extends React.Component {
 
 
     async loadingData() {
-        const { data } = await axios.get(`http://cmsjapi.dataoke.com/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272`);
 
-        /* 
-        http://cmsjapi.dataoke.com/api/category/index/lingquan-live?pageSize=20&pageId=2&entityId=3&userId=427272
-        
-        
-        http://cmsjapi.dataoke.com/api/category/index/lingquan-live?pageSize=20&pageId=1&entityId=3&userId=427272
-        */
 
-        // console.log(data.data.list[0]);
+        const { data } = await axios.get(`http://localhost:1904/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272`);
+
 
         this.setState({
             Ary: [...this.state.Ary, ...data.data.list]
@@ -69,9 +63,7 @@ class Home extends React.Component {
 
         // 滚动的高度
         const scrollTop = event.srcElement.documentElement.scrollTop;
-        // this.setState = ({
-        //     top:scrollTop
-        // })
+
         // console.log(scrollTop);
         // 视窗高度
         const clientHeight = event.srcElement.documentElement.clientHeight;
@@ -107,11 +99,11 @@ class Home extends React.Component {
             //     <GoodsPage/>
             // </div>
             <div className="main" >
-                <header></header>
+                {/* <header></header>
                 <main></main>
-                <footer></footer>
+                <footer></footer> */}
                 <Header/>
-                {/* <HomeComment /> */}
+                <HomeComment />
                 <div >
                     <p style={{ fontSize: '16px', color: 'black' }}>
                         <span style={{ display: 'inline-block', width: '5px', height: '12px', background: 'red', margin: '0 8px' }}></span>领劵直播</p>

@@ -20,8 +20,8 @@ class Tabbar extends React.Component {
                 activeimg: 'https://img.alicdn.com/imgextra/i4/2053469401/TB24KbjnZj_B1NjSZFHXXaDWpXa-2053469401.png',
             }, {
                 title: '9.9包邮',
-                name: 'Free',
-                path: '/free',
+                name: 'BaoYou',
+                path: '/baoyou',
                 img: 'https://img.alicdn.com/imgextra/i4/2053469401/TB23GLTn77mBKNjSZFyXXbydFXa-2053469401.png',
                 activeimg: 'https://img.alicdn.com/imgextra/i4/2053469401/TB2kBbrn_qWBKNjSZFAXXanSpXa-2053469401.png',
             }, {
@@ -52,7 +52,7 @@ class Tabbar extends React.Component {
 
     render() {
         return (
-            <div className="weui-tabbar">
+            <div className="weui-tabbar" style={{height:'50px'}}>
                 {
                     this.state.tabs.map(item => {
                         return (

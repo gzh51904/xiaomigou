@@ -1,0 +1,36 @@
+ul{
+    width: 100%
+}
+.ul_nav_list li {
+    padding: 14px 0;
+    background: #fff;
+    font-size: 14px;
+    color: #666;
+}
+.row-s .col-8 {
+    width:250px;
+    float: left;
+}
+.text-left {
+    text-align: left;
+}
+.ul_nav_list li .text-left .iconfont {
+    margin-right: 7px;
+}
+.ul_nav_list li .iconfont {
+    margin: 0 10px;
+}
+.row-s .col-4 {
+   width: 112px;
+     float: left; 
+}
+.icon-youjiantou:before {
+    content: ">";
+}
+.text-right {
+    text-align: right;
+}
+.hr {
+    background: #F5F5F5;
+    height: 7px;
+}

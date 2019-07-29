@@ -2,6 +2,7 @@ import React from 'react'
 import ClassifyHeader from '../../components/Header/ClassifyHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import aios from 'axios'
+import './Classify.scss'
 import { Tabs, Select } from 'antd';
 import axios from 'axios';
 const { TabPane } = Tabs;
@@ -12,30 +13,56 @@ class Classify extends React.Component {
     constructor() {
         super();
         this.state = {
-
+            data: []
         }
     }
 
     async componentDidMount() {
-        const { data } = await axios.get('http://m.hlxns.com/m/index.php?r=class/category&type=3');
-        console.log(data)
+        const { data } = await axios.get('https://www.easy-mock.com/mock/5d1f2db0c87ced485ced1cde/example/fenlei');
+        console.log(data.data.data)
+
+
+        this.setState({
+            data: data.data.data
+        })
     }
 
     render() {
         return (
-            <div>
+            <div className="classify">
                 <ClassifyHeader />
-                <div>
-                    <Tabs tabPosition={'left'}>
-                        <TabPane tab="Tab 1" key="1">
-                            Content of Tab 1
-                         </TabPane>
-                        <TabPane tab="Tab 2" key="2">
-                            Content of Tab 2
-                        </TabPane>
-                        <TabPane tab="Tab 3" key="3">
-                            Content of Tab 3
-                        </TabPane>
+                <div className="a"></div>
+                <div className="cat_fr_box" >
+                    <Tabs tabPosition={'left'} style={{ paddingLeft: 0 }}>
+                        {
+                            this.state.data.map((item, index) => {
+                                return (
+                                    <TabPane tab={item.name} key={index}>
+                                        {
+                                            item.floors.map(item => {
+                                                return (
+                                                    <div key={item.name}>
+                                                        <h4>{item.name}</h4>
+                                                        <ul className="main-cat1" >
+                                                            {
+                                                                item.list.map(item => {
+                                                                    return (
+                                                                        <li key={item.img}>
+                                                                            <img src={item.img} />
+                                                                            <h4>{item.name}</h4>
+                                                                        </li>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </TabPane>
+                                )
+                            })
+                        }
                     </Tabs>
                 </div>
                 <Tabbar />

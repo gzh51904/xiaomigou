@@ -2,6 +2,7 @@ import React from 'react'
 import './GoodsDetails.scss'
 import axios from 'axios'
 import Header from 'antd/lib/calendar/Header';
+import { Flex } from 'antd-mobile';
 // import { Icon, Grid } from 'antd-mobile';
 class GoodsDetails extends React.Component {
     constructor() {
@@ -21,30 +22,30 @@ class GoodsDetails extends React.Component {
     async componentDidMount() {
 
         //动态路由参数
-        // console.log(this.props.match.params)
+        console.log(this.props.match.params)
         console.log(this.props.location.query);
         window.scrollTo({
             left: 0,
             top: 0,
         });
 
-        const { data } = await axios.get(`http://cmsjapi.dataoke.com/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
+        const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
 
         let imgUrl = JSON.parse(data.data);
         // console.log(imgUrl);
 
 
-        const tuijian = await axios.get(`http://cmsjapi.dataoke.com/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
+        const tuijian = await axios.get(`http://localhost:1904/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
         // console.log(tuijian.data.data)
 
-        const shangjia = await axios.get(`http://cmsjapi.dataoke.com/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
+        const shangjia = await axios.get(`http://localhost:1904/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
         console.log(shangjia.data.data)
 
-        const leisi = await axios.get(`http://cmsjapi.dataoke.com/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
+        const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
         // console.log(leisi.data.data);
 
         this.setState({
-            // data: this.props.location.query,
+            data: this.props.location.query,
             imgPath: imgUrl,
             TJList: tuijian.data.data,
             SJList: shangjia.data.data,
@@ -54,9 +55,9 @@ class GoodsDetails extends React.Component {
 
 
     headelToDetails(item){
-        //  console.log(item);
-        //  console.log(this.props);
-        //  this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
+         console.log(item);
+         console.log(this.props);
+        //  this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: item })
          this.props.history.push({
              pathname:`/goodsdetails/${item.goodsId}/${item.id}`,
              query:item
@@ -67,10 +68,10 @@ class GoodsDetails extends React.Component {
     render() {
         return (
             <div style={{ width: '100%', overflow: 'header' }}>
-                {/* <div className="swiper">
-                    <img src={this.state.data.pic} />
+                <div className="swiper">
+                    {/* <img src={this.state.data.pic} /> */}
                 </div>
-                <div className="goods_quan row-s">
+                {/* <div className="goods_quan row-s">
 
                     <a className="row getGoodsLink" data-dtk-satc="{gid:'21251497',desc:'立即领券-大',name:'DetailGoodsEvent'}" ui-open-taobao="" data-money="10" data-id="21251497">
                         <div className="col-12-8 money">
@@ -174,7 +175,7 @@ class GoodsDetails extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                )
+                                )   
                             })
                         }
                     </div>
