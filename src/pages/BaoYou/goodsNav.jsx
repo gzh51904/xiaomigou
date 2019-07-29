@@ -46,11 +46,16 @@ class GoodsNav extends Component {
     //导航栏改变颜色
     navActive(idx) {
        let navs = this.refs.navs;
+       console.log('idx',idx)
        let navsTop = -45;
         //监听鼠标的移动距离
+        let goodlist = document.querySelector('.commodity_list')
+        goodlist.scrollTo(0,0)
         var btop = document.body.scrollTop || document.documentElement.scrollTop;
         if (navsTop < btop) {
             navs.className = 'fix'
+
+
         } else {
             navs.className = ''
         }
@@ -62,9 +67,12 @@ class GoodsNav extends Component {
     componentDidMount() {
         let navs = this.refs.navs
         let navsTop = navs.offsetTop-45;
+        let goodlist = document.querySelector('.commodity_list')       
         window.onscroll = () => {
+           console.log( goodlist.scrollTop)
             //监听鼠标的移动距离
             var btop = document.body.scrollTop || document.documentElement.scrollTop;
+            // console.log(btop)
             if (navsTop < btop) {
                 navs.className = 'fix'
             } else {

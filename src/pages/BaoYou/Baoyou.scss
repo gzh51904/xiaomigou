@@ -148,7 +148,7 @@
                 white-space: nowrap;
                 overflow-x: auto;
                 line-height: 50px;
-
+                
                 li {
                     height: 46px;
                     display: inline-block;
@@ -156,15 +156,16 @@
                     margin: 0 15px;
                     font-size: 14px;
                 }
-
+                
                 .active {
                     color: #FC3F78;
                     border-bottom: 2px solid #FC3F78;
                 }
             }
-
+            
             .fix {
                 position: fixed;
+                left: 0;
                 top: 44px;
                 // left: 0;
                 z-index: 100;
