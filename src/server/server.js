@@ -17,12 +17,31 @@ app.use(allRouter);
 app.use(express.static('./'));
 
 
-// 代理服务器
-app.use('/api/*',proxy({    
-    // http://m.hlxns.com/m
-    target:'http://cmsjapi.dataoke.com',
+// http://m.hlxns.com/m/index.php?r=class/cysub&cid=22
+app.use('/page',proxy({
+    target:'http://m.hlxns.com/',
     changeOrigin:true,
-    '^/':'/'
+    pathRewrite:{
+        '^/page':'/'
+    }
+}))
+
+// 代理服务器
+app.use('/aa',proxy({
+    target:'http://www.smallmi.com/',
+    changeOrigin:true,
+    pathRewrite:{
+        '^/aa':'/'
+    }
+}))
+
+app.use('/api',proxy({
+    target:'http://cmsjapi.dataoke.com/api',
+    changeOrigin:true,
+    pathRewrite:{
+        '^/api':'/'
+    }
+    
 }))
 
 

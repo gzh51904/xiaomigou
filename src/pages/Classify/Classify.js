@@ -15,6 +15,7 @@ class Classify extends React.Component {
         this.state = {
             data: []
         }
+        this.headelToPage = this.headelToPage.bind(this);
     }
 
     async componentDidMount() {
@@ -25,6 +26,13 @@ class Classify extends React.Component {
         this.setState({
             data: data.data.data
         })
+    }
+
+    async headelToPage(item) {
+        // console.log(item.api_cid);
+       
+        this.props.history.push('/goodspage/renqi');
+        sessionStorage.setItem('goodsPage',JSON.stringify(item));
     }
 
     render() {
@@ -47,7 +55,7 @@ class Classify extends React.Component {
                                                             {
                                                                 item.list.map(item => {
                                                                     return (
-                                                                        <li key={item.img}>
+                                                                        <li key={item.img} onClick={this.headelToPage.bind(this, item)}>
                                                                             <img src={item.img} />
                                                                             <h4>{item.name}</h4>
                                                                         </li>

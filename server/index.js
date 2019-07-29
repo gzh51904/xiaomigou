@@ -2,7 +2,7 @@
 
 const express = require('express');
 const app = express();
-
+const {create} = require('../token/token')
 /* 接收服务器传过来的json */
 app.use(express.json())
 
@@ -38,7 +38,6 @@ app.use('/verify',(req,res)=>{
 
 //检测账号是否存在，无则添加
     app.post('/api/reg',(req,res)=>{
-        console.log(req.body);
         const insertDocuments = async function (db, callback) {
             const collection = db.collection('xiaomigou');
             let {phone} = req.body.values
@@ -98,8 +97,8 @@ app.post('/api/inst', async (req, res) => {
 
 
 
-/* 查询 */
-app.get('/api/find', async (req, res) => {
+/* 查询账户是否存在*/
+app.get('/api/find/login', async (req, res) => {
 
     /* 
     传递方式
@@ -112,11 +111,16 @@ app.get('/api/find', async (req, res) => {
     const findDocuments = function (db, callback) {
 
         const collection = db.collection('xiaomigou');
-        
-        collection.find(req.query).toArray(function (err, docs) {
+        collection.find({phone:req.query.phone,password:req.query.password}).toArray(function (err, docs) {
             /* 将数据返回给前端 */
-            res.send(docs);
-            callback(docs);
+            console.log(docs,req.query);
+            if(docs.length > 0){
+                let Athorization = create(req.query.phone);
+                res.send(formatData({data:Athorization}))
+            }else{
+                res.send(formatData({code:250}))
+            }
+            callback();
         });
     }
 

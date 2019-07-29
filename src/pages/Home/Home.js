@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import Header from '../../components/Header/HomeHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import HomeComment from '../Content/HomeContent'
@@ -8,9 +9,6 @@ import GoodList from '../../components/Goods/GoodsList'
 import XiangQing from '../../components/Header/XiangQingHeader'
 
 // import {  withRouter } from 'react-router-dom';
-
-
-import axios from 'axios'
 
 class Home extends React.Component {
     constructor() {
@@ -29,7 +27,6 @@ class Home extends React.Component {
 
 
     async loadingData() {
-
 
         const { data } = await axios.get(`http://localhost:1904/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272`);
 
@@ -92,7 +89,15 @@ class Home extends React.Component {
         console.log(data)
         this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
     }
+    async componentWillMount() {
+        const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
 
+        console.log(data);
+        this.setState({
+            imgUrlAry: data.data.config
+        })
+    }
+    
     render() {
         return (
             // <div>

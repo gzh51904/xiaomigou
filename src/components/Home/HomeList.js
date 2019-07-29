@@ -29,8 +29,6 @@ class HomeList extends React.Component {
     async componentWillMount() {
         const { data } = await Axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=17&source=3&userId=427272');
 
-        // console.log(data.data.config[0].imgList)
-
         let time = parseInt((data.data.config[1].downTime.time - new Date()) / 1000);
         this.setState({
             newdata_one: data.data.config[0],

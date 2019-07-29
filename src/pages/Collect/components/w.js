@@ -9,7 +9,9 @@ function W(props){
           <p className="img"></p>
           <div className="text">登录后收藏<p>收藏云端同步，不错过任何优惠哦</p></div>
           <div className="but">
-          <a className="btn btn-secondary btn-max" onClick={()=>{props.history.push({pathname:'/login'})}}>登录/注册</a>
+          <a className="btn btn-secondary btn-max" onClick={()=>{props.history.push({pathname:'/login',
+           params: { url:props.match.url }
+          })}}>登录/注册</a>
           </div>
         </div>
     )

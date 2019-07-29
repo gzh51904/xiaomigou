@@ -38,27 +38,51 @@ class GoodsNav extends Component {
                 title: '文娱车品',
                 path: '/wenyu',
             }],
-            idx:0,
+            idx: 0,
         }
         this.navActive = this.navActive.bind(this)
     }
 
     //导航栏改变颜色
-    navActive(idx){
-       this.setState({
-           idx,
-       })
+    navActive(idx) {
+       let navs = this.refs.navs;
+       let navsTop = -45;
+        //监听鼠标的移动距离
+        var btop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (navsTop < btop) {
+            navs.className = 'fix'
+        } else {
+            navs.className = ''
+        }
+    
+        this.setState({
+            idx,
+        })
     }
-    render(){
-        let {goodNav} = this.state
+    componentDidMount() {
+        let navs = this.refs.navs
+        let navsTop = -45;
+        window.onscroll = () => {
+            //监听鼠标的移动距离
+            var btop = document.body.scrollTop || document.documentElement.scrollTop;
+            if (navsTop < btop) {
+                navs.className = 'fix'
+            } else {
+                navs.className = ''
+            }
+        }
+    }
+
+    render() {
+        let { goodNav } = this.state
         return <div className="goods_nav">
-            <ul>
+            <ul ref="navs">
                 {
-                    goodNav.map((item,index)=>(
-                        <li key={index} onClick={this.navActive.bind(this,index)} className={this.state.idx===index?"active":""}>{item.title}</li>
+                    goodNav.map((item, index) => (
+                        <li key={index} onClick={this.navActive.bind(this, index)} className={this.state.idx === index ? "active" : ""}>{item.title}</li>
                     ))
                 }
-                
+
             </ul>
         </div>
     }

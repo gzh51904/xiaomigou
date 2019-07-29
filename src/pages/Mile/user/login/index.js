@@ -6,16 +6,29 @@ import Head from '../../components/head'
 
 import {withRouter} from 'react-router-dom'
 
+import axios from 'axios'
+
 class Reg extends Component{
     constructor(){
         super();
         this.goto = this.goto.bind(this)
     }
+    componentWillMount(){
+    }
     handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields(async (err, values) => {
           if (!err) {
             console.log('Received values of form: ', values);
+          }
+          let {data} = await axios.get('http://localhost:1904/api/find/login',{params:{phone:values.username,password:values.password}})
+          if(data.code == 250){
+            alert("用户名或密码错误")
+          }else{
+          localStorage.setItem("Authorization",data.data);
+          this.props.history.push({
+            pathname:this.props.location.params.url
+          })
           }
         });
       };
