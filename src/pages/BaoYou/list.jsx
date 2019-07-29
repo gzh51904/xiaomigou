@@ -6,7 +6,6 @@ class List extends Component {
         super();
         this.state = {
             GoodList: [],
-            goodheight:null,
         }
     }
     async componentDidMount() {
@@ -14,27 +13,13 @@ class List extends Component {
         // console.log(data.data.data)
         let GoodList = data.data.data.map(item => item);
         console.log(GoodList)
-        // alert(123)
         this.setState({
             GoodList,
             goodheight:this.refs.goodlist.offsetHeight
         })
     }
-     componentWillUpdate(nextProps,nextState){
-         if(nextState.goodheight===this.state.goodheight){
-
-         }else{
-             this.setState({
-                 goodheight:this.refs.goodlist.offsetHeight
-             })
-         }
-         console.log(nextState.goodheight,this.state.goodheight)
-        let goodlist = this.refs.goodlist
-        console.log(this.state.goodheight)
-        // alert(123)
-        // 获取列表的高度
-        let listHeight = goodlist.offsetHeight||goodlist.clientHeight
-        console.log(listHeight)
+     componentWillUpdate(){
+        console.log()
 
     }
     render() {

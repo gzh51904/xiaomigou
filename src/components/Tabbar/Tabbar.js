@@ -1,6 +1,13 @@
 import React from 'react'
 import { NavLink} from 'react-router-dom'
 import './Tabbar.css'
+
+// 高亮的样式，表示我们在哪个导航下
+const selectedStyle = {
+    backgroundColor: 'white',
+    color: 'red'
+  }
+
 class Tabbar extends React.Component {
     constructor() {
         super();
@@ -41,18 +48,19 @@ class Tabbar extends React.Component {
         // this.goto = this.goto.bind(this);
     }
 
+    
 
     render() {
         return (
-            <div className="weui-tabbar">
+            <div className="weui-tabbar" style={{height:'50px'}}>
                 {
                     this.state.tabs.map(item => {
                         return (
-                            <NavLink className="weui-tabbar__item" key={item.title} to={item.path} activeStyle={{color:'red'}}>
+                            <NavLink className="weui-tabbar__item" key={item.title} to={item.path} activeStyle = {selectedStyle}>
                                 <div className="weui-tabbar__icon">
                                     <img src={item.img} />
                                 </div>
-                                <p className="weui-tabbar__label" style={{ color: '#949495' }}>{item.title}</p>
+                                <p className="weui-tabbar__label" >{item.title}</p>
                             </NavLink>
                             // <div className="weui-tabbar__item weui-bar__item_on" key={item.title} onClick={this.goto.bind(this, item.path)}>
                             //     <div className="weui-tabbar__icon">

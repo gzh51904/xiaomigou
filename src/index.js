@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import 'weui'
-import { HashRouter as Router, Route, Redirect, Switch, withRouter} from "react-router-dom";
+import { HashRouter as Router, Route, Redirect, Switch, withRouter } from "react-router-dom";
 
 //引入样式
 import 'antd/dist/antd.css';
@@ -14,11 +14,15 @@ import './css/base.css'
 //全局引入swiper样式
 import 'swiper/dist/css/swiper.min.css'
 /*  */
+// /*  */›
 import Home from './pages/Home/Home'
 import Classify from './pages/Classify/Classify'
 import Collect from './pages/Collect/Collect'
 import BaoYou from './pages/BaoYou/index.jsx'
 import Mile from './pages/Mile/Mile'
+import GoodsDetails from './pages/GoodsDetails/GoodsDetails'
+import GoodsPage from './components/GoodsPage/GoodsPage'
+
 import Login from './pages/Mile/user/login'
 import Reg from './pages/Mile/user/reg'
 import zhCN from 'antd/es/locale-provider/zh_CN';
@@ -63,19 +67,23 @@ axios.interceptors.request.use((config)=>{
 
 
 ReactDOM.render(
-    <Router>
-        <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/home' component={Home} />
-            <Route path='/baoyou' component={BaoYou} />
-            <Route path='/classify' component={Classify} />
-            <Route path='/collect' component={Collect}/>
-            <Route path='/mile' component={Mile} />
-            <Route path='/login' component={Login} />
-            <Route path='/reg' component={Reg} />
-        </Switch>
-    </Router>
-    ,
-    document.getElementById('root'));
+  <Router>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route path='/home' component={Home} />
+      <Route path='/baoyou' component={BaoYou} />
+      <Route path='/classify' component={Classify} />
+      <Route path='/collect' component={Collect} />
+      {/* <Switch> */}
+      <Route path='/goodsdetails/:goodsid/:id' component={GoodsDetails} />
+      <Route path='/goodspage' component={GoodsPage} />
+      {/* </Switch> */}
+      <Route path='/mile' component={Mile} />
+      <Route path='/login' component={Login} />
+      <Route path='/reg' component={Reg} />
+    </Switch>
+  </Router>
+  ,
+  document.getElementById('root'));
 
 serviceWorker.unregister();

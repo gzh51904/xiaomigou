@@ -2,20 +2,8 @@ import React,{Component} from 'react'
 
 import Swiper from "swiper/dist/js/swiper.js"
 
-    // class FengQiang extends Component{
-    //     componentDidMount (){
-    //         new Swiper('.swiper-container', {
-    //             slidesPerView:4,  
-    //             initialSlide: 0,
-    //             observer: true,
-    //             observeParents: true
-    //         })
-            
-    //     }
-    //     render(){
-    //         let data = this.props.data
     function FengQiang(data){
-        return <div className="list1">
+        return <div className="list">
             <h3>
                 <span> 近一小时疯抢</span>
             </h3>

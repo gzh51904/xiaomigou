@@ -1,6 +1,9 @@
 .header{
-    position: fixed;
-    z-index: 160;
+    /* position: fixed; */
+    /* z-index: 99; */
+    /* top: 0; */
+    /* left: 0; */
+    /* z-index: 160; */
     color:white;
     height: 50px;
     line-height: 50px;
@@ -10,7 +13,7 @@
     background: -o-linear-gradient(right, #F5A957, #EC4ABB); 
     background: -moz-linear-gradient(right, #F5A957, #EC4ABB); 
     background: linear-gradient(to right, #F5A957 , #EC4ABB); 
-    position: fixed;
+    /* position: fixed; */
     top:0
 }
 
@@ -25,3 +28,4 @@
 
     /* background-image: url('../../../public/fang.png'); */
 }
+

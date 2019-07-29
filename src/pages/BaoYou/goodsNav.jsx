@@ -47,7 +47,10 @@ class GoodsNav extends Component {
     navActive(idx) {
        let navs = this.refs.navs;
        let navsTop = -45;
-        //监听鼠标的移动距离
+    //    获取nav的高度，每次点击就让鼠标滚到这里
+       let navHeight = document.querySelector('nav');
+       window.scrollTo(0,navHeight.clientHeight+10);
+       //监听鼠标的移动距离
         var btop = document.body.scrollTop || document.documentElement.scrollTop;
         if (navsTop < btop) {
             navs.className = 'fix'
@@ -58,19 +61,29 @@ class GoodsNav extends Component {
         this.setState({
             idx,
         })
+        //判断当前点击的是否为0，如果不为0就不显示商品推荐列表
+            //获取商品推荐列表的节点
+        let commodity = document.querySelector('.commodity_list');
+        if(idx!==0){
+            commodity.style.display = 'none';
+        }else{
+            commodity.style.display = 'block';
+        }
     }
     componentDidMount() {
         let navs = this.refs.navs
-        let navsTop = navs.offsetTop-45;
+        let navsTop = -45;
         window.onscroll = () => {
             //监听鼠标的移动距离
             var btop = document.body.scrollTop || document.documentElement.scrollTop;
+            // console.log(btop)
             if (navsTop < btop) {
                 navs.className = 'fix'
             } else {
                 navs.className = ''
             }
         }
+        
     }
 
     render() {

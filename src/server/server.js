@@ -2,6 +2,10 @@ const express = require('express')
 
 const proxy = require('http-proxy-middleware')
 
+const request = require('request')
+
+// console.log(request);
+
 //引入路由
 const allRouter = require('./index.js')
 
@@ -11,6 +15,16 @@ app.use(allRouter);
 
 //静态资源服务器； 匹配静态资源，则返回；如果不匹配则进入下一个中间键
 app.use(express.static('./'));
+
+
+// http://m.hlxns.com/m/index.php?r=class/cysub&cid=22
+app.use('/page',proxy({
+    target:'http://m.hlxns.com/',
+    changeOrigin:true,
+    pathRewrite:{
+        '^/page':'/'
+    }
+}))
 
 // 代理服务器
 app.use('/aa',proxy({
@@ -29,6 +43,18 @@ app.use('/api',proxy({
     }
     
 }))
+
+
+
+// // 代理服务器
+// app.use('/*',proxy({
+//     // http://m.hlxns.com/m
+//     target:'http://www.smallmi.com/',
+//     changeOrigin:true,
+//     '^/':'/'
+// }))
+
+
 
 
 app.listen(1904,()=>{
