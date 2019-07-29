@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-
 import 'weui'
 import { HashRouter as Router, Route, Redirect, Switch, withRouter} from "react-router-dom";
 
@@ -28,6 +26,11 @@ import zhCN from 'antd/es/locale-provider/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import axios from 'axios'
+
+
+import {Provider} from 'react-redux'
+import store from './store'
+
 
 moment.locale('zh-cn');
 
@@ -71,6 +74,7 @@ axios.interceptors.request.use((config)=>{
 
 
 ReactDOM.render(
+  <Provider store={store}>
     <Router>
         <Switch>
             <Route exact path='/' component={Home} />
@@ -87,7 +91,8 @@ ReactDOM.render(
             <Route path='/reg' component={Reg} />
         </Switch>
     </Router>
+    </Provider>
     ,
     document.getElementById('root'));
 
-serviceWorker.unregister();
+
