@@ -11,8 +11,13 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-weui": "^1.1.3",
+<<<<<<< HEAD
     "request": "^2.88.0",
     "swiper": "^4.5.0",
+=======
+    "swiper": "^4.5.0",
+    "request": "^2.88.0",
+>>>>>>> 007e19f13a7abc9a55dd2afe86099c7a137bc560
     "weui": "^1.1.0"
   },
   "scripts": {

@@ -148,25 +148,30 @@
                 white-space: nowrap;
                 overflow-x: auto;
                 line-height: 50px;
-
+                left: 1px;
+                margin-left: -1px;
+                
                 li {
                     height: 46px;
+                    // line-height: 50px;
                     display: inline-block;
                     list-style: none;
                     margin: 0 15px;
                     font-size: 14px;
                 }
-
+                
                 .active {
                     color: #FC3F78;
                     border-bottom: 2px solid #FC3F78;
+                    box-sizing: border-box;
                 }
             }
-
+            
             .fix {
                 position: fixed;
+                left: 0;
                 top: 44px;
-                // left: 0;
+                left: 0;
                 z-index: 100;
                 margin: 0;
             }
@@ -182,10 +187,8 @@
             background: #F1F1F1;
             padding-bottom: 5px;
 
-            .list1,
-            .list2,
-            .list3,
-            .list4 {
+            
+            .list {
                 background: #fff;
                 margin-bottom: 1px;
             }

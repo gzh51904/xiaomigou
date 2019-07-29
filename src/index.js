@@ -14,6 +14,7 @@ import './css/base.css'
 //全局引入swiper样式
 import 'swiper/dist/css/swiper.min.css'
 /*  */
+// /*  */›
 import Home from './pages/Home/Home'
 import Classify from './pages/Classify/Classify'
 import Collect from './pages/Collect/Collect'

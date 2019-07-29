@@ -4,6 +4,10 @@ import axios from 'axios'
 import Header from 'antd/lib/calendar/Header';
 import { Flex } from 'antd-mobile';
 // import { Icon, Grid } from 'antd-mobile';
+
+
+
+import GoodsPay from '../../components/Goods/Goods_pay'
 class GoodsDetails extends React.Component {
     constructor() {
         super();
@@ -180,6 +184,7 @@ class GoodsDetails extends React.Component {
                         }
                     </div>
                 </div>
+                <GoodsPay></GoodsPay>
             </div >
         )
     }
