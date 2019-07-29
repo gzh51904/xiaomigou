@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+// import {connent} from 'react-redux'
 
 import 'weui'
 import { HashRouter as Router, Route, Redirect, Switch, withRouter } from "react-router-dom";
@@ -29,6 +31,11 @@ import zhCN from 'antd/es/locale-provider/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 import axios from 'axios'
+
+
+import { Provider } from 'react-redux';
+import store from '../src/store/index.js'
+
 
 moment.locale('zh-cn');
 
@@ -72,22 +79,24 @@ axios.interceptors.response.use(res => {
 
 
 ReactDOM.render(
-  <Router>
-    <Switch>
-      <Route exact path='/' component={Home} />
-      <Route path='/home' component={Home} />
-      <Route path='/baoyou' component={BaoYou} />
-      <Route path='/classify' component={Classify} />
-      <Route path='/collect' component={Collect} />
-      {/* <Switch> */}
-      <Route path='/goodsdetails/:goodsid/:id' component={GoodsDetails} />
-      <Route path='/goodspage' component={GoodsPage} />
-      {/* </Switch> */}
-      <Route path='/mile' component={Mile} />
-      <Route path='/login' component={Login} />
-      <Route path='/reg' component={Reg} />
-    </Switch>
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route path='/home' component={Home} />
+        <Route path='/baoyou' component={BaoYou} />
+        <Route path='/classify' component={Classify} />
+        <Route path='/collect' component={Collect} />
+        {/* <Switch> */}
+        <Route path='/goodsdetails/:goodsid/:id' component={GoodsDetails} />
+        <Route path='/goodspage' component={GoodsPage} />
+        {/* </Switch> */}
+        <Route path='/mile' component={Mile} />
+        <Route path='/login' component={Login} />
+        <Route path='/reg' component={Reg} />
+      </Switch>
+    </Router>
+  </Provider>
   ,
   document.getElementById('root'));
 

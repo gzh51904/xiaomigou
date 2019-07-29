@@ -3,7 +3,6 @@ import { node } from 'prop-types';
 import { NavLink } from 'react-router-dom'
 import Axios from 'axios';
 import { tuple } from 'antd/lib/_util/type';
-import goodsList from '../Goods/GoodsList'
 class GoodsPage extends React.Component {
     constructor() {
         super();

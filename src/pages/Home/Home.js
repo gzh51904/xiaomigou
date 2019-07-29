@@ -10,12 +10,9 @@ import XiangQing from '../../components/Header/XiangQingHeader'
 
 // import {  withRouter } from 'react-router-dom';
 
-<<<<<<< HEAD
-=======
 
 // import axios from 'axios'
 
->>>>>>> 007e19f13a7abc9a55dd2afe86099c7a137bc560
 class Home extends React.Component {
     constructor() {
         super();
@@ -61,13 +58,9 @@ class Home extends React.Component {
         window.removeEventListener('scroll', this.bindScroll);
     }
 
-<<<<<<< HEAD
-
-=======
     async componentWillMount() {
         const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
     }
->>>>>>> 007e19f13a7abc9a55dd2afe86099c7a137bc560
     bindScroll(event) {
 
         // 滚动的高度
@@ -100,14 +93,10 @@ class Home extends React.Component {
     headelGoTo(data) {
         console.log(data)
         this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
-<<<<<<< HEAD
     }
     async componentWillMount() {
         const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
 
-=======
-        
->>>>>>> 007e19f13a7abc9a55dd2afe86099c7a137bc560
         console.log(data);
         this.setState({
             imgUrlAry: data.data.config

@@ -1,6 +1,7 @@
 import React from 'react'
 import './GoodsDetails.scss'
 import axios from 'axios'
+import store from '../../store/index.js'
 import Header from 'antd/lib/calendar/Header';
 import { Flex } from 'antd-mobile';
 // import { Icon, Grid } from 'antd-mobile';
@@ -8,6 +9,7 @@ import { Flex } from 'antd-mobile';
 
 
 import GoodsPay from '../../components/Goods/Goods_pay'
+
 class GoodsDetails extends React.Component {
     constructor() {
         super();
@@ -18,16 +20,16 @@ class GoodsDetails extends React.Component {
             LSList: {},  //类似商品
             SJList: {}   //商家信息
         }
-
-        this.headelToDetails =  this.headelToDetails.bind(this);
+        this.headelToDetails = this.headelToDetails.bind(this);
+        this.headerAddCare = this.headerAddCare.bind(this);
     }
 
 
     async componentDidMount() {
-
+        console.log(store.getState())
         //动态路由参数
-        console.log(this.props.match.params)
-        console.log(this.props.location.query);
+        // console.log(this.props.match.params)
+        // console.log(this.props.location.query);
         window.scrollTo({
             left: 0,
             top: 0,
@@ -43,7 +45,7 @@ class GoodsDetails extends React.Component {
         // console.log(tuijian.data.data)
 
         const shangjia = await axios.get(`http://localhost:1904/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-        console.log(shangjia.data.data)
+        // console.log(shangjia.data.data)
 
         const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
         // console.log(leisi.data.data);
@@ -57,15 +59,26 @@ class GoodsDetails extends React.Component {
         })
     }
 
+    headerAddCare(item) {
+        console.log(item)
+        store.dispatch({type:'ADD_TO_CART',payload:item});
 
-    headelToDetails(item){
-         console.log(item);
-         console.log(this.props);
+        store.subscribe(()=>{
+            console.log(store.getState())
+        })
+    }
+
+
+    
+
+    headelToDetails(item) {
+        console.log(item);
+        console.log(this.props);
         //  this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: item })
-         this.props.history.push({
-             pathname:`/goodsdetails/${item.goodsId}/${item.id}`,
-             query:item
-         });
+        this.props.history.push({
+            pathname: `/goodsdetails/${item.goodsId}/${item.id}`,
+            query: item
+        });
     }
 
 
@@ -157,7 +170,7 @@ class GoodsDetails extends React.Component {
                         {
                             this.state.TJList.map((item, index) => {
                                 return (
-                                    <div className="cent" key={index} onClick={this.headelToDetails.bind(this,item)}>
+                                    <div className="cent" key={index} onClick={this.headelToDetails.bind(this, item)}>
                                         <img className="lazy" src={item.pic} alt="" isload="true" style={{ background: 'rgb(245, 245, 245)', display: "block" }} />
                                         <div className="mar">
                                             <h3 className="bt tianmao">
@@ -179,12 +192,12 @@ class GoodsDetails extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                )   
+                                )
                             })
                         }
                     </div>
                 </div>
-                <GoodsPay></GoodsPay>
+                <GoodsPay onClick={this.headerAddCare.bind(this, this.state.data)}></GoodsPay>
             </div >
         )
     }
