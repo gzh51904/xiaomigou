@@ -31,7 +31,6 @@ class Home extends React.Component {
 
     async loadingData() {
 
-
         const { data } = await axios.get(`http://localhost:1904/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272`);
 
 
@@ -94,7 +93,10 @@ class Home extends React.Component {
     headelGoTo(data) {
         console.log(data)
         this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
-        
+    }
+    async componentWillMount() {
+        const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
+
         console.log(data);
         this.setState({
             imgUrlAry: data.data.config

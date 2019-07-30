@@ -17,6 +17,15 @@ app.use(allRouter);
 app.use(express.static('./'));
 
 
+// http://m.hlxns.com/m/index.php?r=class/cysub&cid=22
+app.use('/page',proxy({
+    target:'http://m.hlxns.com/',
+    changeOrigin:true,
+    pathRewrite:{
+        '^/page':'/'
+    }
+}))
+
 // 代理服务器
 app.use('/aa',proxy({
     target:'http://www.smallmi.com/',

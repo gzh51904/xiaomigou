@@ -73,7 +73,7 @@ class GoodsNav extends Component {
     componentDidMount() {
         let navs = this.refs.navs
         let navHeight = document.querySelector('nav');
-        let navsTop = navHeight.clientHeight+10;
+        let navsTop = navHeight.clientHeight+10; 
         window.onscroll = () => {
             //监听鼠标的移动距离
             var btop = document.body.scrollTop || document.documentElement.scrollTop;
