@@ -25,9 +25,12 @@ class Reg extends Component{
           if(data.code == 250){
             alert("用户名或密码错误")
           }else{
+            let params = this.props.location.params
           localStorage.setItem("Authorization",data.data);
+          console.log(this.props);
+          
           this.props.history.push({
-            pathname:this.props.location.params.url
+            pathname:params ? params.url : '/mile'
           })
           }
         });
