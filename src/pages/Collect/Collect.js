@@ -18,12 +18,19 @@ class Collect extends React.Component {
         let {data} = await axios.get('http://localhost:1904/verify')
         let {code,msg} = data;
         if(code==401 && msg=="unauthorized"){
-            this.isLgn = false
+            console.log("buchenggong",this);
+            
+           this.setState({
+               isLgn:false
+           })
         }else if(code==1000){
-            this.isLgn = true
+            this.setState({
+                isLgn:true
+            })
         }
     }
     render() {
+        console.log(this.state.isLgn);
         
         return (
             <div style={{overflow:"hidden"}}>
@@ -32,9 +39,8 @@ class Collect extends React.Component {
                     <Route path={url + "/w"} component={w}/>
                     <Route/>
                 </Switch> */}
-                {
-                   this.state.isLgn=true ? <Y/> : <W/>
-                }
+                
+              {this.state.isLgn ? <Y/> : <W/>}
                 <Tabbar/>
             </div>
         )

@@ -30,6 +30,8 @@ app.use('/verify',(req,res)=>{
     // 失败：
     let token = req.headers.authorization;console.log('mytoken:',token)
     if(!verify(token)){
+        console.log("不成功");
+        
         res.send(formatData({code:401,msg:'unauthorized'}))
     }else{
         res.send(formatData())
