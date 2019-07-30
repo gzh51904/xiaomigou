@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 
-import { Row, Col} from 'antd';
+
 
 import Navs from './navs'
 import GoodsNav from './goodsNav'
