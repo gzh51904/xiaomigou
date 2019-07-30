@@ -86,9 +86,9 @@ class GoodsDetails extends React.Component {
         return (
             <div style={{ width: '100%', overflow: 'header' }}>
                 <div className="swiper">
-                    {/* <img src={this.state.data.pic} /> */}
+                    <img src={this.state.data.pic} />
                 </div>
-                {/* <div className="goods_quan row-s">
+                <div className="goods_quan row-s">
 
                     <a className="row getGoodsLink" data-dtk-satc="{gid:'21251497',desc:'立即领券-大',name:'DetailGoodsEvent'}" ui-open-taobao="" data-money="10" data-id="21251497">
                         <div className="col-12-8 money">
@@ -100,10 +100,10 @@ class GoodsDetails extends React.Component {
                     </a>
 
                     <img src="https://cmsstatic.dataoke.com//wap_new/main/images/goods_quan.png?v=201907171617" alt="" />
-                </div> */}
-                {/* <div className="goods_desc col-mar col-888">
+                </div>
+                <div className="goods_desc col-mar col-888">
                     {this.state.data.title}
-                 </div> */}
+                 </div>
 
                 <div id="goodsShopShow">
                     <div className="goods_shop">
@@ -139,7 +139,7 @@ class GoodsDetails extends React.Component {
                     <div className="hr">
                     </div>
                 </div>
-                <div className="goods_reco">
+                {/* <div className="goods_reco">
                     <h3>相似推荐</h3>
                     <div className="goods_reco_swiper">
                         <div className="swiper-container swiper-container-horizontal">
@@ -155,7 +155,7 @@ class GoodsDetails extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="imglist">
                     <h3>宝贝详情</h3>
                     {

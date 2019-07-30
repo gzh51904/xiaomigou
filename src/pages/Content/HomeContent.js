@@ -20,9 +20,9 @@ class HomeComment extends React.Component {
                 {/* <ConTab /> */}
                 {/* <Banner /> */}
                 <HomeNav />
-                <HomeExperss />
+                {/* <HomeExperss /> */}
                 <HomeList />
-                <HomeVoucher />
+                {/* <HomeVoucher /> */}
             </div>
         )
     }
