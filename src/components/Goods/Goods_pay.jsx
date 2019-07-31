@@ -2,10 +2,6 @@ import React from 'react'
 
 import './GoodsList.css'
 class GoodSPay extends React.Component {
-    constructor() {
-        super()
-
-    }
 
     render() {
         return <div className="goods_pay">
@@ -22,11 +18,11 @@ class GoodSPay extends React.Component {
                         收藏
                 </p>
                 </li>
-                <li className="kouling">
-                    <p>口令购买</p>
-                </li>
                 <li className="lingquan" onClick={this.props.onClick}>
                     <p>领券购买</p>
+                </li>
+                <li className="kouling">
+                    <p>口令购买</p>
                 </li>
             </ul>
         </div>

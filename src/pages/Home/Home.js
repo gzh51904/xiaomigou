@@ -93,6 +93,9 @@ class Home extends React.Component {
     headelGoTo(data) {
         console.log(data)
         this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
+        let info = {goodsId:data.goodsId,data:data.id}
+        sessionStorage.setItem('Info', JSON.stringify(info));
+        sessionStorage.setItem('goodsData',JSON.stringify(data));
     }
     async componentWillMount() {
         const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');

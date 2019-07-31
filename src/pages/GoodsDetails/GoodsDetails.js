@@ -5,16 +5,18 @@ import store from '../../store/index.js'
 import Header from 'antd/lib/calendar/Header';
 import { Flex } from 'antd-mobile';
 // import { Icon, Grid } from 'antd-mobile';
-
-
-
 import GoodsPay from '../../components/Goods/Goods_pay'
+
 
 class GoodsDetails extends React.Component {
     constructor() {
         super();
         this.state = {
+            scrollTop2: 0,
+            scrollTop3: 0,
+            index: 0,
             data: {},
+            h_op: 0,
             imgPath: [], //商品图
             TJList: [],  //推荐商品
             LSList: {},  //类似商品
@@ -22,18 +24,68 @@ class GoodsDetails extends React.Component {
         }
         this.headelToDetails = this.headelToDetails.bind(this);
         this.headerAddCare = this.headerAddCare.bind(this);
+        this.bindScroll = this.bindScroll.bind(this);
+        this.refreshData = this.refreshData.bind(this);
+        this.MianscrollHeight = this.MianscrollHeight.bind(this);
+        this.headelGoBack = this.headelGoBack.bind(this)
     }
 
 
-    async componentDidMount() {
-        console.log(store.getState())
+    componentWillMount() {
+        // window.scrollTo({
+        //     left: 0,
+        //     top: 0,
+        // });
+
+        this.setState({
+            data: JSON.parse(sessionStorage.getItem('goodsData'))
+        })
+    }
+
+
+    componentDidMount() {
+        this.refreshData();
+        window.addEventListener('scroll', this.bindScroll)
+    }
+
+
+    MianscrollHeight(index) {
+        console.log(index);
+        // let offsetTop = 0;
+        // if (index == 1) {
+        //     offsetTop = this.state.scrollTop2;
+        // } else if (offsetTop == 2) {
+        //     offsetTop = this.state.scrollTop3;
+        // } else {
+        //     offsetTop = 0;
+        // }
+        // console.log(offsetTop);
+        // window.scrollTo({
+        //     left: 0,
+        //     top: offsetTop,
+        // });
+    }
+
+    bindScroll(event) {
+        const scrollTop = event.srcElement.documentElement.scrollTop;
+        let heder_opacity = (scrollTop / 50) > 1 ? 1 : (scrollTop / 50);
+        let top = this.refs.imgcomRef.offsetTop;
+        let anchors_ant_top = this.refs.anchors_ant.offsetTop-5;
+
+        this.setState({
+            scrollTop2: top,
+            scrollTop3: anchors_ant_top,
+            h_op: heder_opacity,
+            index: scrollTop >= anchors_ant_top ? 2 : (scrollTop >= top ? 1 : 0)
+        })
+
+    }
+
+    async refreshData() {
+        // console.log(store.getState())
         //动态路由参数
         // console.log(this.props.match.params)
         // console.log(this.props.location.query);
-        window.scrollTo({
-            left: 0,
-            top: 0,
-        });
 
         const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
 
@@ -45,13 +97,13 @@ class GoodsDetails extends React.Component {
         // console.log(tuijian.data.data)
 
         const shangjia = await axios.get(`http://localhost:1904/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-        // console.log(shangjia.data.data)
+        console.log(shangjia.data.data)
 
         const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
         // console.log(leisi.data.data);
 
         this.setState({
-            data: this.props.location.query,
+            // data: this.props.location.query,
             imgPath: imgUrl,
             TJList: tuijian.data.data,
             SJList: shangjia.data.data,
@@ -59,33 +111,63 @@ class GoodsDetails extends React.Component {
         })
     }
 
-    headerAddCare(item) {
-        console.log(item)
-        store.dispatch({type:'ADD_TO_CART',payload:item});
+    headelGoBack() {
+        // this.props.history.goBack();
+        this.props.history.push('/home');
+    }
 
-        store.subscribe(()=>{
+    headerAddCare(item) {
+        // console.log(item)
+        store.dispatch({ type: 'ADD_TO_CART', payload: item });
+
+        store.subscribe(() => {
             console.log(store.getState())
         })
     }
 
+    componentWillUnmount() {
+        // 移除滚动监听
+        window.removeEventListener('scroll', this.bindScroll);
+    }
 
-    
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        this.refreshData()
+    }
+
 
     headelToDetails(item) {
-        console.log(item);
-        console.log(this.props);
-        //  this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: item })
-        this.props.history.push({
-            pathname: `/goodsdetails/${item.goodsId}/${item.id}`,
-            query: item
-        });
+
+        this.props.history.push({ pathname: `/goodsdetails/${item.goodsId}/${item.id}`, query: item })
+
+        let info = { goodsId: item.goodsId, data: item.id }
+        sessionStorage.setItem('Info', JSON.stringify(info));
+        sessionStorage.setItem('goodsData', JSON.stringify(item));
+    }
+
+    scrollToAnchor = (anchorName) => {
+        if (anchorName) {
+            let anchorElement = document.getElementById(anchorName);
+            if (anchorElement) { anchorElement.scrollIntoView(); }
+        }
     }
 
 
     render() {
         return (
             <div style={{ width: '100%', overflow: 'hidden' }}>
-                <div className="swiper">
+                <header className='details_header' style={{ background: 'white', position: 'fixed', top: '0px', opacity: this.state.h_op, zIndex: 98 }}>
+                    {/* <span style={{ lineHeight: '50px' ,marginLeft:'20px',display:'inline-block',width:'40px',background:'gray'}}>返回</span> */}
+                    <ul className='title'>
+                        <li className='fl_li'></li>
+                        <li style={{ borderBottom: (this.state.index == 0) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('swiper')}>商品</li>
+                        <li style={{ borderBottom: (this.state.index == 1) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('imglist')}>详情</li>
+                        <li style={{ borderBottom: (this.state.index == 2) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('anchors_ant')}>推荐</li>
+                        <li>...</li>
+                    </ul>
+                </header>
+                <div style={{ position: 'fixed', top: '5px', left: '20px', width: "40px", height: '40px', backgroundColor: `rgba(234, 234, 234,${1 - this.state.h_op})`, zIndex: 99, lineHeight: '40px', textAlign: "center", borderRadius: '50%' }} onClick={this.headelGoBack}>返回</div>
+                <div className="swiper" id="swiper">
                     <img src={this.state.data.pic} />
                 </div>
                 <div className="goods_quan row-s">
@@ -103,7 +185,7 @@ class GoodsDetails extends React.Component {
                 </div>
                 <div className="goods_desc col-mar col-888">
                     {this.state.data.title}
-                 </div>
+                </div>
 
                 <div id="goodsShopShow">
                     <div className="goods_shop">
@@ -156,7 +238,7 @@ class GoodsDetails extends React.Component {
                         </div>
                     </div>
                 </div> */}
-                <div className="imglist">
+                <div className="imglist" ref="imgcomRef" id="imglist">
                     <h3>宝贝详情</h3>
                     {
                         this.state.imgPath.map(item => {
@@ -164,7 +246,7 @@ class GoodsDetails extends React.Component {
                         })
                     }
                 </div>
-                <div id="anchors_ant">
+                <div id="anchors_ant" ref="anchors_ant">
                     <h3>今日热销</h3>
                     <div className="g_cent">
                         {
