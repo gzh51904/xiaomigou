@@ -43,8 +43,6 @@ class List extends Component {
                         </div>
                     </li>
                 ))}
-
-
             </ul>
         </div>
     }
