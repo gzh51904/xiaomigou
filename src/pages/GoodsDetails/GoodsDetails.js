@@ -84,7 +84,7 @@ class GoodsDetails extends React.Component {
 
     render() {
         return (
-            <div style={{ width: '100%', overflow: 'header' }}>
+            <div style={{ width: '100%', overflow: 'hidden' }}>
                 <div className="swiper">
                     <img src={this.state.data.pic} />
                 </div>

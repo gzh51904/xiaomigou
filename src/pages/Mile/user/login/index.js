@@ -21,7 +21,7 @@ class Reg extends Component{
           if (!err) {
             console.log('Received values of form: ', values);
           }
-          let {data} = await axios.get('http://localhost:1904/api/find/login',{params:{phone:values.username,password:values.password}})
+          let {data} = await axios.get('http://localhost:19041/api/find/login',{params:{phone:values.username,password:values.password}})
           if(data.code == 250){
             alert("用户名或密码错误")
           }else{

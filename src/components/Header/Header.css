@@ -1,4 +1,4 @@
-.header{
+.header_sc{
     /* position: fixed; */
     /* z-index: 99; */
     /* top: 0; */
@@ -8,12 +8,12 @@
     height: 50px;
     line-height: 50px;
     width: 100%;
-    text-align: center;
+    z-index: 155;
     background: -webkit-linear-gradient(left, #F5A957 , #EC4ABB); 
     background: -o-linear-gradient(right, #F5A957, #EC4ABB); 
     background: -moz-linear-gradient(right, #F5A957, #EC4ABB); 
     background: linear-gradient(to right, #F5A957 , #EC4ABB); 
-    /* position: fixed; */
+    position: absolute;
     top:0
 }
 
@@ -28,4 +28,33 @@
 
     /* background-image: url('../../../public/fang.png'); */
 }
+.header_sc a {
+    color: #fff;
 
+   
+    position: absolute;
+    top: 0;
+    width: 45px;
+    text-align: center;
+}
+.iconfont{
+    left: 0;
+    font-size: 19.5px;
+}
+.header_sc div{
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+    position: relative;
+    z-index: 2;
+    zoom: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fff
+}
+
+.text-b{
+    right: 0;
+    font-size: 14px
+}
