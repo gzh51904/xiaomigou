@@ -16,6 +16,8 @@ moment.locale('zh-cn');
 import 'swiper/dist/css/swiper.min.css'
 /*  */
 // /*  */›
+
+
 import Home from './pages/Home/Home'
 import Classify from './pages/Classify/Classify'
 import Collect from './pages/Collect/Collect'
