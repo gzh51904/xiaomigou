@@ -52,7 +52,7 @@
 /* .list_3  */
 
 .goods_pay{
-    width: 100%;
+    width: 100vw;
     height: 56px;
     background: #fff;
     position: fixed;
@@ -94,8 +94,10 @@
     box-sizing: border-box;
     margin-top: 5px;
     color:#FEA674;
+    float: right;
 }
 .goods_pay .lingquan{
+    float: right;
     width: 120px;
     height: 45px;
     padding: 10px 10px;
