@@ -16,7 +16,7 @@ class Banner extends React.Component {
         // http://localhost:1904/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272
 
         const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
-        console.log(data.data.config)
+        // console.log(data.data.config)
         this.setState({
             imgAry: data.data.config,
         })

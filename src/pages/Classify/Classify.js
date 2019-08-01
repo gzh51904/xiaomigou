@@ -20,7 +20,7 @@ class Classify extends React.Component {
 
     async componentDidMount() {
         const { data } = await axios.get('https://www.easy-mock.com/mock/5d1f2db0c87ced485ced1cde/example/fenlei');
-        console.log(data.data.data)
+        // console.log(data.data.data)
 
 
         this.setState({
@@ -49,7 +49,7 @@ class Classify extends React.Component {
                                         {
                                             item.floors.map(item => {
                                                 return (
-                                                    <div key={item.name}>
+                                                    <div key={item.name} style={{padding:0,margin:0}}>
                                                         <h4>{item.name}</h4>
                                                         <ul className="main-cat1" >
                                                             {

@@ -6,11 +6,12 @@ import HomeComment from '../Content/HomeContent'
 import './Home.css'
 import GoodsPage from '../../components/GoodsPage/GoodsPage'
 import GoodList from '../../components/Goods/GoodsList'
-import XiangQing from '../../components/Header/XiangQingHeader'
+import { connect } from 'react-redux'
+
+import { add_info, revision_info, revision_goods_data, add_goods_data } from '../../store/InfoActios.js'
+
 
 // import {  withRouter } from 'react-router-dom';
-
-
 // import axios from 'axios'
 
 class Home extends React.Component {
@@ -28,11 +29,9 @@ class Home extends React.Component {
     }
 
 
-
     async loadingData() {
 
         const { data } = await axios.get(`http://localhost:1904/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272`);
-        console.log(data);
 
         this.setState({
             Ary: [...this.state.Ary, ...data.data.list]
@@ -45,10 +44,6 @@ class Home extends React.Component {
 
         this.loadingData();
 
-        // window.scrollTo({
-        //     left: 0,
-        //     top: this.state.top,
-        // });
         //添加滚动监听
         window.addEventListener('scroll', this.bindScroll)
     }
@@ -89,9 +84,26 @@ class Home extends React.Component {
 
     /* 点击子组件路由传参 */
     headelGoTo(data) {
-        // console.log(data)
-        this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
+        // sessionStorage.setItem('id', data.id)
+        // this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data });
         let info = { goodsId: data.goodsId, data: data.id }
+
+        let { addinfo, addgoodsdata, revisiongoodsdata, revisioninfo, state } = this.props;
+
+        if (state.info.length == 0) {
+            addinfo(info);
+        } else if (state.info != info) {
+            revisioninfo(info);
+        }
+
+        if (!state.goodsData) {
+            addgoodsdata(data);
+        } else if (state.goodsData != data) {
+            revisiongoodsdata(data);
+        }
+
+        console.log(this.props.state);
+
         sessionStorage.setItem('Info', JSON.stringify(info));
         sessionStorage.setItem('goodsData', JSON.stringify(data));
     }
@@ -109,13 +121,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            // <div>
-            //     <GoodsPage/>
-            // </div>
             <div className="main" >
-                {/* <header></header>
-                <main></main>
-                <footer></footer> */}
                 <Header />
                 <HomeComment />
                 <div >
@@ -127,11 +133,38 @@ class Home extends React.Component {
                         })
                     }
                 </div>
-                {/* <XiangQing/> */}
                 <Tabbar />
             </div>
         )
     }
 }
+
+let mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        state: state.InfoReducer
+    }
+}
+/* 将添加,修改映射到props上 */
+let mapDispathTopops = (dispatch, ownProps) => {
+    // console.log(ownProps)
+    return {
+        addinfo(info) {
+            dispatch(add_info(info));
+        },
+        revisioninfo(info) {
+            dispatch(revision_info(info));
+        },
+        addgoodsdata(data) {
+            dispatch(add_goods_data(data));
+        },
+        revisiongoodsdata(data) {
+            dispatch(revision_goods_data(data));
+        }
+        // dispatch
+    }
+}
+
+Home = connect(mapStateToProps, mapDispathTopops)(Home);
 
 export default Home

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
+import App from './App';
 import 'weui'
 import { HashRouter as Router, Route, Redirect, Switch, withRouter } from "react-router-dom";
 
@@ -13,16 +13,16 @@ import './css/base.css'
 import 'swiper/dist/css/swiper.min.css'
 /*  */
 // /*  */›
-import Home from './pages/Home/Home'
-import Classify from './pages/Classify/Classify'
-import Collect from './pages/Collect/Collect'
-import BaoYou from './pages/BaoYou/index.jsx'
-import Mile from './pages/Mile/Mile'
-import GoodsDetails from './pages/GoodsDetails/GoodsDetails'
-import GoodsPage from './components/GoodsPage/GoodsPage'
+// import Home from './pages/Home/Home'
+// import Classify from './pages/Classify/Classify'
+// import Collect from './pages/Collect/Collect'
+// import BaoYou from './pages/BaoYou/index.jsx'
+// import Mile from './pages/Mile/Mile'
+// import GoodsDetails from './pages/GoodsDetails/GoodsDetails'
+// import GoodsPage from './components/GoodsPage/GoodsPage'
+// import Login from './pages/Mile/user/login'
+// import Reg from './pages/Mile/user/reg'
 
-import Login from './pages/Mile/user/login'
-import Reg from './pages/Mile/user/reg'
 import zhCN from 'antd/es/locale-provider/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -72,20 +72,19 @@ axios.interceptors.request.use((config)=>{
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Switch>
+      <App/>
+      {/* <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/home' component={Home} />
         <Route path='/baoyou' component={BaoYou} />
         <Route path='/classify' component={Classify} />
         <Route path='/collect' component={Collect} />
-        {/* <Switch> */}
         <Route path='/goodsdetails/:goodsid/:id' component={GoodsDetails} />
         <Route path='/goodspage' component={GoodsPage} />
-        {/* </Switch> */}
         <Route path='/mile' component={Mile} />
         <Route path='/login' component={Login} />
         <Route path='/reg' component={Reg} />
-      </Switch>
+      </Switch> */}
     </Router>
   </Provider>
   ,

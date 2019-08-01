@@ -6,6 +6,11 @@ import Header from 'antd/lib/calendar/Header';
 import { Flex } from 'antd-mobile';
 // import { Icon, Grid } from 'antd-mobile';
 import GoodsPay from '../../components/Goods/Goods_pay'
+import { connect } from 'react-redux'
+import ActionCreator, { createAdd2careAction } from '../../store/cartActions.js'
+
+/* 此方法将 store->cartActions文件中 的方法导出 */
+import { bindActionCreators } from 'redux';
 
 
 class GoodsDetails extends React.Component {
@@ -83,34 +88,34 @@ class GoodsDetails extends React.Component {
 
 
         const tuijian = await axios.get(`http://localhost:1904/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
-        // console.log(tuijian.data.data)
+        console.log(tuijian.data.data)
 
         const shangjia = await axios.get(`http://localhost:1904/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
         // console.log(shangjia.data.data)
 
-        const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
-        // console.log(leisi.data.data);
 
         let a = JSON.parse(sessionStorage.getItem('Info'));
-        console.log(a)
+        // console.log(a)
         let b = JSON.parse(sessionStorage.getItem('goodsData'));
 
 
+        // const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
+        // console.log(leisi);
+
         const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-        console.log(this.props.match.params.goodsid)
+        // console.log(this.props.match.params.goodsid)
         let imgAry = JSON.parse(data.data);
 
         let imgUrl = JSON.stringify(imgAry);
 
         sessionStorage.setItem('imgUrl', imgUrl)
 
-
         this.setState({
             data: b,
             imgPath: imgAry,
             TJList: tuijian.data.data,
             SJList: shangjia.data.data,
-            LSList: leisi.data.data
+            // LSList: leisi.data.data
         })
 
         window.scrollTo({
@@ -126,12 +131,13 @@ class GoodsDetails extends React.Component {
     }
 
     headerAddCare(item) {
-        // console.log(item)
-        store.dispatch({ type: 'ADD_TO_CART', payload: item });
-
-        store.subscribe(() => {
-            console.log(store.getState())
-        })
+       
+        /* 
+        1.  this.props.dispatch({ type: 'ADD_TO_CART', payload: item });
+        2.  this.props.add2cart(item)
+        */
+       
+        this.props.createAdd2careAction(item)
     }
 
     componentWillUnmount() {
@@ -139,10 +145,6 @@ class GoodsDetails extends React.Component {
         window.removeEventListener('scroll', this.bindScroll);
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     console.log(nextProps);
-    //     this.refreshData()
-    // }
 
     componentWillReceiveProps(nextProps, nextContext) {
         this.refreshData()
@@ -174,7 +176,6 @@ class GoodsDetails extends React.Component {
         return (
             <div style={{ width: '100%', overflow: 'hidden' }}>
                 <header className='details_header' style={{ background: 'white', position: 'fixed', top: '0px', opacity: this.state.h_op, zIndex: 98 }}>
-                    {/* <span style={{ lineHeight: '50px' ,marginLeft:'20px',display:'inline-block',width:'40px',background:'gray'}}>返回</span> */}
                     <ul className='title'>
                         <li className='fl_li'></li>
                         <li style={{ borderBottom: (this.state.index == 0) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('swiper')}>商品</li>
@@ -243,23 +244,29 @@ class GoodsDetails extends React.Component {
                     <div className="hr">
                     </div>
                 </div>
-                {/* <div className="goods_reco">
+                <div className="goods_reco" style={{ width: '100%' }}>
                     <h3>相似推荐</h3>
-                    <div className="goods_reco_swiper">
-                        <div className="swiper-container swiper-container-horizontal">
-                            <div className="swiper-wrapper">
-                                <div className="swiper-slide active swiper-slide-prev">
-                                    <div className="swiper-cent">
-                                        <img src="https://img.alicdn.com/imgextra/i3/1772727399/O1CN01IukZxg24Wn1JZ8Mod_!!1772727399.jpg_310x310.jpg_.webp" alt="" />
-                                        <p className="name">森草堂婴儿洗护二合一沐浴乳洗发水</p>
-                                        <p className="quan"><span>20元券</span></p>
-                                        <p className="money col-money">券后价  <span>¥9.9</span></p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="" style={{ width: '100%' }}>
+                        <div style={{ overflow: 'auto' }}>
+                            {
+                                // this.state.LSList.map(item => {
+                                //     console.log(item)
+                                //     return (
+                                //    
+                                // <div className="goods_reco_swiper" style={{ display: "inline-block", width: '120px', margin: '10px' }}>
+                                //     <div className="swiper-cent">
+                                //         <img src="https://img.alicdn.com/imgextra/i3/1772727399/O1CN01IukZxg24Wn1JZ8Mod_!!1772727399.jpg_310x310.jpg_.webp" alt="" style={{ margin: 0 }} />
+                                //         <p className="name">森草堂婴儿洗护二合一沐浴乳洗发水</p>
+                                //         <p className="quan"><span>20元券</span></p>
+                                //         <p className="money col-money">券后价  <span>¥9.9</span></p>
+                                //     </div>
+                                // </div>
+                                //     )
+                                // })
+                            }
                         </div>
                     </div>
-                </div> */}
+                </div>
                 <div className="imglist" ref="imgcomRef" id="imglist">
                     <h3>宝贝详情</h3>
                     {
@@ -306,5 +313,63 @@ class GoodsDetails extends React.Component {
         )
     }
 }
+
+/* 
+state reducer中的数据通过高阶组件父子传参(this.props获取) ownProps 原来的props  
+mapStateToProps(将state映射到props)有两个参数
+*/
+let mapStateToProps = (store, ownProps) => {
+    console.log(store)
+    console.log(ownProps);
+    return {
+        /* 此处这里需要用到redux中的什么取什么 */
+    }
+}
+/* 
+将方法映射到props中 此方法可以不写默认有dispath修改方法
+*/
+let mapDispathTopops = (dispatch, ownProps) => {
+    //  return {
+    //     /* 将方法写入此处 直接调用 */
+    //     /* 
+    //     将操作方法写入至 store->cartActions文件中
+    //      add2cart(data) {
+    //          dispatch({ type: 'ADD_TO_CART', payload: data })
+    //      }
+    //     */
+    //     add2cart(data) {
+    //         dispatch(createAdd2careAction(data))
+    //     }
+    // } 
+
+
+    // return {
+    //     addAction(goods){
+    //         dispatch(addAction(goods))
+    //     },
+    //     removeAction(id){
+    //         dispatch(removeAction(id))
+    //     },
+    //     changeQtyAction({id,qty}){
+    //         dispatch(changeQtyAction({id,qty}))
+    //     }
+    // }
+
+    // 等效于上面代码
+    /* 
+    将ActionCreator默认导出的方法放入bindActionCreators方法中,就可以自己了通过this.props获取到所有的操作方法,省去一个引用出来
+    dispatch是操作redux数据的唯一方法
+    */
+    // return bindActionCreators(ActionCreator, dispatch)
+
+    return {
+        /* 此处如需扩展其他方法 需扩展bindActionCreators */
+        ...bindActionCreators(ActionCreator,dispatch),
+        dispatch
+    }
+
+}
+
+GoodsDetails = connect(mapStateToProps, mapDispathTopops)(GoodsDetails)
 
 export default GoodsDetails
