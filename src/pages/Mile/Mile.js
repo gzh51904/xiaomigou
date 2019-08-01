@@ -9,7 +9,7 @@ import MineList from './mineList'
 class Mile extends React.Component {
     render() {
         return (
-            <div className="layout">
+            <div className="layout-a">
                 <User></User>
                 <MineList></MineList>
                 <Tabbar/>

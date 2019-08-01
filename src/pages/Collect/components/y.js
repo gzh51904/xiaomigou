@@ -27,7 +27,7 @@ async componentWillMount(){
   }
     render(){
       return (
-        <div className="layout">
+        <div className="layout-shoucang">
           <div>
         <ul>
        <li style={{display:{"":this.isShow}}}>
@@ -42,8 +42,32 @@ async componentWillMount(){
        <li className="row-s">
          <div className="label">
            <label></label>
-           <p className="img"></p>
-           <div className="cent"></div>
+           <p className="sc-img">
+             <a>
+               <img src="https://img.alicdn.com/imgextra/i4/3054826079/O1CN01bEKAgy1umEDcoAXKg_!!0-item_pic.jpg_310x310.jpg_.webp"/>
+             </a>
+           </p>
+           <div className="sc-r">
+             <a>
+               <h3>标题标题</h3>
+             </a>
+             <div className="num-sc-c">
+               <span>天猫价222.2</span>
+               <span style={{float:"right"}}>已经开卖</span>
+             </div>
+             <div className="num-sc-b">
+               <p className="quan">
+                 <i>
+                   15元卷
+                 </i>
+               </p>
+               卷后价
+               <span>
+                 <i>￥</i>
+                 6.9
+               </span>
+             </div>
+           </div>
          </div>
        </li>
         </ul>
