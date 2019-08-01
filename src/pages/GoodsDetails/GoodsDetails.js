@@ -32,10 +32,6 @@ class GoodsDetails extends React.Component {
 
 
     componentWillMount() {
-        // window.scrollTo({
-        //     left: 0,
-        //     top: 0,
-        // });
 
         this.setState({
             data: JSON.parse(sessionStorage.getItem('goodsData'))
@@ -44,8 +40,10 @@ class GoodsDetails extends React.Component {
 
 
     componentDidMount() {
+
         this.refreshData();
         window.addEventListener('scroll', this.bindScroll)
+
     }
 
 
@@ -70,7 +68,7 @@ class GoodsDetails extends React.Component {
         const scrollTop = event.srcElement.documentElement.scrollTop;
         let heder_opacity = (scrollTop / 50) > 1 ? 1 : (scrollTop / 50);
         let top = this.refs.imgcomRef.offsetTop;
-        let anchors_ant_top = this.refs.anchors_ant.offsetTop-5;
+        let anchors_ant_top = this.refs.anchors_ant.offsetTop - 5;
 
         this.setState({
             scrollTop2: top,
@@ -82,33 +80,44 @@ class GoodsDetails extends React.Component {
     }
 
     async refreshData() {
-        // console.log(store.getState())
-        //动态路由参数
-        // console.log(this.props.match.params)
-        // console.log(this.props.location.query);
-
-        const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-
-        let imgUrl = JSON.parse(data.data);
-        // console.log(imgUrl);
 
 
         const tuijian = await axios.get(`http://localhost:1904/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
         // console.log(tuijian.data.data)
 
         const shangjia = await axios.get(`http://localhost:1904/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-        console.log(shangjia.data.data)
+        // console.log(shangjia.data.data)
 
         const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
         // console.log(leisi.data.data);
 
+        let a = JSON.parse(sessionStorage.getItem('Info'));
+        console.log(a)
+        let b = JSON.parse(sessionStorage.getItem('goodsData'));
+
+
+        const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
+        console.log(this.props.match.params.goodsid)
+        let imgAry = JSON.parse(data.data);
+
+        let imgUrl = JSON.stringify(imgAry);
+
+        sessionStorage.setItem('imgUrl', imgUrl)
+
+
         this.setState({
-            // data: this.props.location.query,
-            imgPath: imgUrl,
+            data: b,
+            imgPath: imgAry,
             TJList: tuijian.data.data,
             SJList: shangjia.data.data,
             LSList: leisi.data.data
         })
+
+        window.scrollTo({
+            left: 0,
+            top: 0,
+        });
+
     }
 
     headelGoBack() {
@@ -130,9 +139,17 @@ class GoodsDetails extends React.Component {
         window.removeEventListener('scroll', this.bindScroll);
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+    // componentWillReceiveProps(nextProps) {
+    //     console.log(nextProps);
+    //     this.refreshData()
+    // }
+
+    componentWillReceiveProps(nextProps, nextContext) {
         this.refreshData()
+        this.setState({
+            caseDetail: nextProps.caseDetail
+        });
+        setTimeout(this.changeHeight, 0);
     }
 
 
@@ -174,10 +191,14 @@ class GoodsDetails extends React.Component {
 
                     <a className="row getGoodsLink" data-dtk-satc="{gid:'21251497',desc:'立即领券-大',name:'DetailGoodsEvent'}" ui-open-taobao="" data-money="10" data-id="21251497">
                         <div className="col-12-8 money">
-                            <p><span>{this.state.data.quanJine}</span> 元优惠券</p>
-                            使用期限:{this.state.data.createTime}                    </div>
+                            <p className="p1">
+                                <span>{this.state.data.quanJine}</span>
+                                元优惠券
+                            </p>
+                            <p className="p2">使用期限:{this.state.data.createTime}</p>
+                        </div>
                         <div className="col-12-4 name">
-                            <span>立即领券</span>
+                            立即领券
                         </div>
                     </a>
 
@@ -201,18 +222,19 @@ class GoodsDetails extends React.Component {
                             </div>
                         </div>
                         <div className="tab row-s">
-                            <div className="col-12-4">宝贝描述:{this.state.SJList.dsrScore}
-                                <span className="iconfont  icon-point_high lv_g">
-
+                            <div className="col-12-4">宝贝描述:
+                                <span className="iconfont  icon-point_high lv_g" style={{ color: 'red' }}>
+                                    {this.state.SJList.dsrScore}
                                 </span>
                             </div>
-                            <div className="col-12-4">卖家服务:{this.state.SJList.serviceScore}
-                                <span className="iconfont icon-point_high lv_g">
-
+                            <div className="col-12-4">卖家服务:
+                                <span className="iconfont icon-point_high lv_g" style={{ color: 'red' }}>
+                                    {this.state.SJList.serviceScore}
                                 </span>
                             </div>
-                            <div className="col-12-4">物流服务:{this.state.SJList.shipScore}
-                                <span className="iconfont icon-point_high lv_g">
+                            <div className="col-12-4">物流服务:
+                                <span className="iconfont icon-point_high lv_g" style={{ color: 'red' }}>
+                                    {this.state.SJList.shipScore}
                                 </span>
                             </div>
                         </div>
