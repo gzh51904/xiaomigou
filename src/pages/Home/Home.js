@@ -20,7 +20,7 @@ class Home extends React.Component {
             Ary: [],
             pageId: 1,
             codeType: true,
-            top:''
+            top: ''
         }
         this.loadingData = this.loadingData.bind(this);
         this.bindScroll = this.bindScroll.bind(this);
@@ -32,14 +32,14 @@ class Home extends React.Component {
     async loadingData() {
 
         const { data } = await axios.get(`http://localhost:1904/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272`);
-
+        console.log(data);
 
         this.setState({
             Ary: [...this.state.Ary, ...data.data.list]
         })
     }
 
-    
+
 
     componentDidMount() {
 
@@ -58,9 +58,7 @@ class Home extends React.Component {
         window.removeEventListener('scroll', this.bindScroll);
     }
 
-    async componentWillMount() {
-        const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
-    }
+
     bindScroll(event) {
 
         // 滚动的高度
@@ -91,22 +89,24 @@ class Home extends React.Component {
 
     /* 点击子组件路由传参 */
     headelGoTo(data) {
-        console.log(data)
+        // console.log(data)
         this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
-        let info = {goodsId:data.goodsId,data:data.id}
+        let info = { goodsId: data.goodsId, data: data.id }
         sessionStorage.setItem('Info', JSON.stringify(info));
-        sessionStorage.setItem('goodsData',JSON.stringify(data));
+        sessionStorage.setItem('goodsData', JSON.stringify(data));
     }
+
     async componentWillMount() {
+
+        /* 首页轮播图 */
         const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
 
-        console.log(data);
         this.setState({
             imgUrlAry: data.data.config
         })
     }
-    
-    
+
+
     render() {
         return (
             // <div>
@@ -116,7 +116,7 @@ class Home extends React.Component {
                 {/* <header></header>
                 <main></main>
                 <footer></footer> */}
-                <Header/>
+                <Header />
                 <HomeComment />
                 <div >
                     <p style={{ fontSize: '16px', color: 'black' }}>

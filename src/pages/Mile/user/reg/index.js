@@ -35,7 +35,7 @@ class Reg extends Component{
         e.preventDefault();
         this.props.form.validateFieldsAndScroll( async (err, values) => {
           if (!err) {
-          let {data} = await axios.post('http://localhost:1904/api/reg',{values})
+          let {data} = await axios.post('http://localhost:19041/api/reg',{values})
             console.log(data, values);
             alert(data)
           }

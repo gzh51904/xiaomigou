@@ -15,7 +15,7 @@ class Collect extends React.Component {
         }
     };
     async componentWillMount(){
-        let {data} = await axios.get('http://localhost:1904/verify')
+        let {data} = await axios.get('http://localhost:19041/verify')
         let {code,msg} = data;
         if(code==401 && msg=="unauthorized"){
             console.log("buchenggong",this);
@@ -34,7 +34,7 @@ class Collect extends React.Component {
         
         return (
             <div style={{overflow:"hidden"}}>
-                <CollectHeader/>
+                <CollectHeader title="我的收藏"/>
                 {/* <Switch>
                     <Route path={url + "/w"} component={w}/>
                     <Route/>
