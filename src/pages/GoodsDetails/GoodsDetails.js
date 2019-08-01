@@ -172,7 +172,7 @@ class GoodsDetails extends React.Component {
 
     render() {
         return (
-            <div style={{ width: '100%', overflow: 'header' }}>
+            <div style={{ width: '100%', overflow: 'hidden' }}>
                 <header className='details_header' style={{ background: 'white', position: 'fixed', top: '0px', opacity: this.state.h_op, zIndex: 98 }}>
                     {/* <span style={{ lineHeight: '50px' ,marginLeft:'20px',display:'inline-block',width:'40px',background:'gray'}}>返回</span> */}
                     <ul className='title'>
