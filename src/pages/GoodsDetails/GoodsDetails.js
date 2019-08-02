@@ -86,9 +86,9 @@ class GoodsDetails extends React.Component {
 
     async refreshData() {
 
-
+        console.log(this.props);
         const tuijian = await axios.get(`http://localhost:1904/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
-        console.log(tuijian.data.data)
+        // console.log(tuijian.data.data)
 
         const shangjia = await axios.get(`http://localhost:1904/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
         // console.log(shangjia.data.data)
@@ -156,6 +156,7 @@ class GoodsDetails extends React.Component {
 
 
     headelToDetails(item) {
+
 
         this.props.history.push({ pathname: `/goodsdetails/${item.goodsId}/${item.id}`, query: item })
 
@@ -319,10 +320,11 @@ state reducer中的数据通过高阶组件父子传参(this.props获取) ownPro
 mapStateToProps(将state映射到props)有两个参数
 */
 let mapStateToProps = (store, ownProps) => {
-    console.log(store)
-    console.log(ownProps);
+    // console.log(store)
     return {
         /* 此处这里需要用到redux中的什么取什么 */
+        InfoReducer:store.InfoReducer,
+        CarReducer:store.CarReducer
     }
 }
 /* 

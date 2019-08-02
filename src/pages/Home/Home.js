@@ -85,24 +85,21 @@ class Home extends React.Component {
     /* 点击子组件路由传参 */
     headelGoTo(data) {
         // sessionStorage.setItem('id', data.id)
-        // this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data });
+        this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data });
         let info = { goodsId: data.goodsId, data: data.id }
 
         let { addinfo, addgoodsdata, revisiongoodsdata, revisioninfo, state } = this.props;
 
-        if (state.info.length == 0) {
-            addinfo(info);
-        } else if (state.info != info) {
+
+         if (state.info != info) {
             revisioninfo(info);
         }
 
-        if (!state.goodsData) {
-            addgoodsdata(data);
-        } else if (state.goodsData != data) {
+        if (state.goodsData != data) {
             revisiongoodsdata(data);
         }
 
-        console.log(this.props.state);
+        // console.log(this.props.state);
 
         sessionStorage.setItem('Info', JSON.stringify(info));
         sessionStorage.setItem('goodsData', JSON.stringify(data));
