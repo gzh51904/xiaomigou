@@ -6,6 +6,11 @@ import Header from 'antd/lib/calendar/Header';
 import { Flex } from 'antd-mobile';
 // import { Icon, Grid } from 'antd-mobile';
 import GoodsPay from '../../components/Goods/Goods_pay'
+import { connect } from 'react-redux'
+import ActionCreator, { createAdd2careAction } from '../../store/cartActions.js'
+
+/* 此方法将 store->cartActions文件中 的方法导出 */
+import { bindActionCreators } from 'redux';
 
 
 class GoodsDetails extends React.Component {
@@ -32,10 +37,6 @@ class GoodsDetails extends React.Component {
 
 
     componentWillMount() {
-        // window.scrollTo({
-        //     left: 0,
-        //     top: 0,
-        // });
 
         this.setState({
             data: JSON.parse(sessionStorage.getItem('goodsData'))
@@ -44,8 +45,10 @@ class GoodsDetails extends React.Component {
 
 
     componentDidMount() {
+
         this.refreshData();
         window.addEventListener('scroll', this.bindScroll)
+
     }
 
 
@@ -70,7 +73,7 @@ class GoodsDetails extends React.Component {
         const scrollTop = event.srcElement.documentElement.scrollTop;
         let heder_opacity = (scrollTop / 50) > 1 ? 1 : (scrollTop / 50);
         let top = this.refs.imgcomRef.offsetTop;
-        let anchors_ant_top = this.refs.anchors_ant.offsetTop-5;
+        let anchors_ant_top = this.refs.anchors_ant.offsetTop - 5;
 
         this.setState({
             scrollTop2: top,
@@ -82,33 +85,44 @@ class GoodsDetails extends React.Component {
     }
 
     async refreshData() {
-        // console.log(store.getState())
-        //动态路由参数
-        // console.log(this.props.match.params)
-        // console.log(this.props.location.query);
 
-        const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-
-        let imgUrl = JSON.parse(data.data);
-        // console.log(imgUrl);
-
-
+        console.log(this.props);
         const tuijian = await axios.get(`http://localhost:1904/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
         // console.log(tuijian.data.data)
 
         const shangjia = await axios.get(`http://localhost:1904/api/goods/get-goods-shop-info?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-        console.log(shangjia.data.data)
+        // console.log(shangjia.data.data)
 
-        const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
-        // console.log(leisi.data.data);
+
+        let a = JSON.parse(sessionStorage.getItem('Info'));
+        // console.log(a)
+        let b = JSON.parse(sessionStorage.getItem('goodsData'));
+
+
+        // const leisi = await axios.get(`http://localhost:1904/api/goods/get-similar-goods?id=${this.props.match.params.id}&categoryId=50012478&entityId=3&userId=427272`);
+        // console.log(leisi);
+
+        const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
+        // console.log(this.props.match.params.goodsid)
+        let imgAry = JSON.parse(data.data);
+
+        let imgUrl = JSON.stringify(imgAry);
+
+        sessionStorage.setItem('imgUrl', imgUrl)
 
         this.setState({
-            // data: this.props.location.query,
-            imgPath: imgUrl,
+            data: b,
+            imgPath: imgAry,
             TJList: tuijian.data.data,
             SJList: shangjia.data.data,
-            LSList: leisi.data.data
+            // LSList: leisi.data.data
         })
+
+        window.scrollTo({
+            left: 0,
+            top: 0,
+        });
+
     }
 
     headelGoBack() {
@@ -117,12 +131,13 @@ class GoodsDetails extends React.Component {
     }
 
     headerAddCare(item) {
-        // console.log(item)
-        store.dispatch({ type: 'ADD_TO_CART', payload: item });
-
-        store.subscribe(() => {
-            console.log(store.getState())
-        })
+       
+        /* 
+        1.  this.props.dispatch({ type: 'ADD_TO_CART', payload: item });
+        2.  this.props.add2cart(item)
+        */
+       
+        this.props.createAdd2careAction(item)
     }
 
     componentWillUnmount() {
@@ -130,13 +145,18 @@ class GoodsDetails extends React.Component {
         window.removeEventListener('scroll', this.bindScroll);
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+
+    componentWillReceiveProps(nextProps, nextContext) {
         this.refreshData()
+        this.setState({
+            caseDetail: nextProps.caseDetail
+        });
+        setTimeout(this.changeHeight, 0);
     }
 
 
     headelToDetails(item) {
+
 
         this.props.history.push({ pathname: `/goodsdetails/${item.goodsId}/${item.id}`, query: item })
 
@@ -157,7 +177,6 @@ class GoodsDetails extends React.Component {
         return (
             <div style={{ width: '100%', overflow: 'hidden' }}>
                 <header className='details_header' style={{ background: 'white', position: 'fixed', top: '0px', opacity: this.state.h_op, zIndex: 98 }}>
-                    {/* <span style={{ lineHeight: '50px' ,marginLeft:'20px',display:'inline-block',width:'40px',background:'gray'}}>返回</span> */}
                     <ul className='title'>
                         <li className='fl_li'></li>
                         <li style={{ borderBottom: (this.state.index == 0) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('swiper')}>商品</li>
@@ -174,10 +193,14 @@ class GoodsDetails extends React.Component {
 
                     <a className="row getGoodsLink" data-dtk-satc="{gid:'21251497',desc:'立即领券-大',name:'DetailGoodsEvent'}" ui-open-taobao="" data-money="10" data-id="21251497">
                         <div className="col-12-8 money">
-                            <p><span>{this.state.data.quanJine}</span> 元优惠券</p>
-                            使用期限:{this.state.data.createTime}                    </div>
+                            <p className="p1">
+                                <span>{this.state.data.quanJine}</span>
+                                元优惠券
+                            </p>
+                            <p className="p2">使用期限:{this.state.data.createTime}</p>
+                        </div>
                         <div className="col-12-4 name">
-                            <span>立即领券</span>
+                            立即领券
                         </div>
                     </a>
 
@@ -201,18 +224,19 @@ class GoodsDetails extends React.Component {
                             </div>
                         </div>
                         <div className="tab row-s">
-                            <div className="col-12-4">宝贝描述:{this.state.SJList.dsrScore}
-                                <span className="iconfont  icon-point_high lv_g">
-
+                            <div className="col-12-4">宝贝描述:
+                                <span className="iconfont  icon-point_high lv_g" style={{ color: 'red' }}>
+                                    {this.state.SJList.dsrScore}
                                 </span>
                             </div>
-                            <div className="col-12-4">卖家服务:{this.state.SJList.serviceScore}
-                                <span className="iconfont icon-point_high lv_g">
-
+                            <div className="col-12-4">卖家服务:
+                                <span className="iconfont icon-point_high lv_g" style={{ color: 'red' }}>
+                                    {this.state.SJList.serviceScore}
                                 </span>
                             </div>
-                            <div className="col-12-4">物流服务:{this.state.SJList.shipScore}
-                                <span className="iconfont icon-point_high lv_g">
+                            <div className="col-12-4">物流服务:
+                                <span className="iconfont icon-point_high lv_g" style={{ color: 'red' }}>
+                                    {this.state.SJList.shipScore}
                                 </span>
                             </div>
                         </div>
@@ -221,23 +245,29 @@ class GoodsDetails extends React.Component {
                     <div className="hr">
                     </div>
                 </div>
-                {/* <div className="goods_reco">
+                <div className="goods_reco" style={{ width: '100%' }}>
                     <h3>相似推荐</h3>
-                    <div className="goods_reco_swiper">
-                        <div className="swiper-container swiper-container-horizontal">
-                            <div className="swiper-wrapper">
-                                <div className="swiper-slide active swiper-slide-prev">
-                                    <div className="swiper-cent">
-                                        <img src="https://img.alicdn.com/imgextra/i3/1772727399/O1CN01IukZxg24Wn1JZ8Mod_!!1772727399.jpg_310x310.jpg_.webp" alt="" />
-                                        <p className="name">森草堂婴儿洗护二合一沐浴乳洗发水</p>
-                                        <p className="quan"><span>20元券</span></p>
-                                        <p className="money col-money">券后价  <span>¥9.9</span></p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="" style={{ width: '100%' }}>
+                        <div style={{ overflow: 'auto' }}>
+                            {
+                                // this.state.LSList.map(item => {
+                                //     console.log(item)
+                                //     return (
+                                //    
+                                // <div className="goods_reco_swiper" style={{ display: "inline-block", width: '120px', margin: '10px' }}>
+                                //     <div className="swiper-cent">
+                                //         <img src="https://img.alicdn.com/imgextra/i3/1772727399/O1CN01IukZxg24Wn1JZ8Mod_!!1772727399.jpg_310x310.jpg_.webp" alt="" style={{ margin: 0 }} />
+                                //         <p className="name">森草堂婴儿洗护二合一沐浴乳洗发水</p>
+                                //         <p className="quan"><span>20元券</span></p>
+                                //         <p className="money col-money">券后价  <span>¥9.9</span></p>
+                                //     </div>
+                                // </div>
+                                //     )
+                                // })
+                            }
                         </div>
                     </div>
-                </div> */}
+                </div>
                 <div className="imglist" ref="imgcomRef" id="imglist">
                     <h3>宝贝详情</h3>
                     {
@@ -284,5 +314,64 @@ class GoodsDetails extends React.Component {
         )
     }
 }
+
+/* 
+state reducer中的数据通过高阶组件父子传参(this.props获取) ownProps 原来的props  
+mapStateToProps(将state映射到props)有两个参数
+*/
+let mapStateToProps = (store, ownProps) => {
+    // console.log(store)
+    return {
+        /* 此处这里需要用到redux中的什么取什么 */
+        InfoReducer:store.InfoReducer,
+        CarReducer:store.CarReducer
+    }
+}
+/* 
+将方法映射到props中 此方法可以不写默认有dispath修改方法
+*/
+let mapDispathTopops = (dispatch, ownProps) => {
+    //  return {
+    //     /* 将方法写入此处 直接调用 */
+    //     /* 
+    //     将操作方法写入至 store->cartActions文件中
+    //      add2cart(data) {
+    //          dispatch({ type: 'ADD_TO_CART', payload: data })
+    //      }
+    //     */
+    //     add2cart(data) {
+    //         dispatch(createAdd2careAction(data))
+    //     }
+    // } 
+
+
+    // return {
+    //     addAction(goods){
+    //         dispatch(addAction(goods))
+    //     },
+    //     removeAction(id){
+    //         dispatch(removeAction(id))
+    //     },
+    //     changeQtyAction({id,qty}){
+    //         dispatch(changeQtyAction({id,qty}))
+    //     }
+    // }
+
+    // 等效于上面代码
+    /* 
+    将ActionCreator默认导出的方法放入bindActionCreators方法中,就可以自己了通过this.props获取到所有的操作方法,省去一个引用出来
+    dispatch是操作redux数据的唯一方法
+    */
+    // return bindActionCreators(ActionCreator, dispatch)
+
+    return {
+        /* 此处如需扩展其他方法 需扩展bindActionCreators */
+        ...bindActionCreators(ActionCreator,dispatch),
+        dispatch
+    }
+
+}
+
+GoodsDetails = connect(mapStateToProps, mapDispathTopops)(GoodsDetails)
 
 export default GoodsDetails

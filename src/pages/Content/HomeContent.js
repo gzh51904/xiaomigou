@@ -17,12 +17,9 @@ class HomeComment extends React.Component {
     render() {
         return (
             <div style={{width:'100%'}} className="homecomment">
-                {/* <ConTab /> */}
-                {/* <Banner /> */}
+                <Banner />
                 <HomeNav />
-                {/* <HomeExperss /> */}
                 <HomeList />
-                {/* <HomeVoucher /> */}
             </div>
         )
     }

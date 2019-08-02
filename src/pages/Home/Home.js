@@ -3,14 +3,15 @@ import axios from 'axios'
 import Header from '../../components/Header/HomeHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import HomeComment from '../Content/HomeContent'
-import './Home.css'
+
 import GoodsPage from '../../components/GoodsPage/GoodsPage'
 import GoodList from '../../components/Goods/GoodsList'
-import XiangQing from '../../components/Header/XiangQingHeader'
+import { connect } from 'react-redux'
+
+import { add_info, revision_info, revision_goods_data, add_goods_data } from '../../store/InfoActios.js'
+import './Home.css'
 
 // import {  withRouter } from 'react-router-dom';
-
-
 // import axios from 'axios'
 
 class Home extends React.Component {
@@ -20,7 +21,7 @@ class Home extends React.Component {
             Ary: [],
             pageId: 1,
             codeType: true,
-            top:''
+            top: ''
         }
         this.loadingData = this.loadingData.bind(this);
         this.bindScroll = this.bindScroll.bind(this);
@@ -28,27 +29,21 @@ class Home extends React.Component {
     }
 
 
-
     async loadingData() {
 
         const { data } = await axios.get(`http://localhost:1904/api/category/index/lingquan-live?pageSize=20&pageId=${this.state.pageId}&entityId=3&userId=427272`);
-
 
         this.setState({
             Ary: [...this.state.Ary, ...data.data.list]
         })
     }
 
-    
+
 
     componentDidMount() {
 
         this.loadingData();
 
-        // window.scrollTo({
-        //     left: 0,
-        //     top: this.state.top,
-        // });
         //添加滚动监听
         window.addEventListener('scroll', this.bindScroll)
     }
@@ -58,9 +53,7 @@ class Home extends React.Component {
         window.removeEventListener('scroll', this.bindScroll);
     }
 
-    async componentWillMount() {
-        const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
-    }
+
     bindScroll(event) {
 
         // 滚动的高度
@@ -91,32 +84,42 @@ class Home extends React.Component {
 
     /* 点击子组件路由传参 */
     headelGoTo(data) {
-        console.log(data)
-        this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data })
-        let info = {goodsId:data.goodsId,data:data.id}
+        // sessionStorage.setItem('id', data.id)
+        this.props.history.push({ pathname: `/goodsdetails/${data.goodsId}/${data.id}`, query: data });
+        let info = { goodsId: data.goodsId, data: data.id }
+
+        let { addinfo, addgoodsdata, revisiongoodsdata, revisioninfo, state } = this.props;
+
+
+         if (state.info != info) {
+            revisioninfo(info);
+        }
+
+        if (state.goodsData != data) {
+            revisiongoodsdata(data);
+        }
+
+        // console.log(this.props.state);
+
         sessionStorage.setItem('Info', JSON.stringify(info));
-        sessionStorage.setItem('goodsData',JSON.stringify(data));
+        sessionStorage.setItem('goodsData', JSON.stringify(data));
     }
+
     async componentWillMount() {
+
+        /* 首页轮播图 */
         const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
 
-        console.log(data);
         this.setState({
             imgUrlAry: data.data.config
         })
     }
-    
-    
+
+
     render() {
         return (
-            // <div>
-            //     <GoodsPage/>
-            // </div>
             <div className="main" >
-                {/* <header></header>
-                <main></main>
-                <footer></footer> */}
-                <Header/>
+                <Header />
                 <HomeComment />
                 <div >
                     <p style={{ fontSize: '16px', color: 'black' }}>
@@ -127,11 +130,38 @@ class Home extends React.Component {
                         })
                     }
                 </div>
-                {/* <XiangQing/> */}
                 <Tabbar />
             </div>
         )
     }
 }
+
+let mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        state: state.InfoReducer
+    }
+}
+/* 将添加,修改映射到props上 */
+let mapDispathTopops = (dispatch, ownProps) => {
+    // console.log(ownProps)
+    return {
+        addinfo(info) {
+            dispatch(add_info(info));
+        },
+        revisioninfo(info) {
+            dispatch(revision_info(info));
+        },
+        addgoodsdata(data) {
+            dispatch(add_goods_data(data));
+        },
+        revisiongoodsdata(data) {
+            dispatch(revision_goods_data(data));
+        }
+        // dispatch
+    }
+}
+
+Home = connect(mapStateToProps, mapDispathTopops)(Home);
 
 export default Home

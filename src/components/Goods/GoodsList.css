@@ -65,7 +65,7 @@
 .goods_pay li{
     float: left;
     list-style: none;
-    width: 65px;
+    width: 14vw;
     height: 55px;
     padding-top: 5px;
     /* box-sizing: border-box; */
@@ -86,7 +86,7 @@
     margin: 0 auto;
 }
 .goods_pay .kouling{
-    width: 120px;
+    width: 30vw;
     height: 45px;
     padding: 10px 10px;
     border-radius: 5px 0 0 5px;
@@ -98,7 +98,7 @@
 }
 .goods_pay .lingquan{
     float: right;
-    width: 120px;
+    width: 30vw;
     height: 45px;
     padding: 10px 10px;
     border-radius: 0 5px 5px 0 ;
