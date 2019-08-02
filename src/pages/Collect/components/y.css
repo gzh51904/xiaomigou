@@ -57,7 +57,8 @@
     border-bottom: 1px solid #F5F5F5;
     position: relative;
     z-index: 1;
-    background: #fff
+    background: #fff;
+    margin-left: 50px
 }
 .sc-img{
     width: 126px;
@@ -171,4 +172,15 @@ display: block;
 }
 .num-sc-b span i{
     font-size: 11px;
+}
+.checkbox-input{
+    color: #aaa;
+    width: 42px;
+    height: 20px;
+    top:50%;
+    position: absolute;
+    left: -38px;
+}
+ul li {
+    list-style: none
 }
