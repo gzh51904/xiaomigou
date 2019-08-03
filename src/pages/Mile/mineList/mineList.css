@@ -7,7 +7,7 @@ ul{
     font-size: 14px;
     color: #666;
 }
-.row-s .col-8 {
+.row-s-list .col-8 {
     width:250px;
     float: left;
 }
@@ -20,7 +20,7 @@ ul{
 .ul_nav_list li .iconfont {
     margin: 0 10px;
 }
-.row-s .col-4 {
+.row-s-list .col-4 {
    width: 112px;
      float: left; 
 }
