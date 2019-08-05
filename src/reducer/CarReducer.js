@@ -19,9 +19,10 @@ let CarReduer = (state=initState, action) => {
             }
         /* 删除商品 */
         case REM_GOODS:
+                console.log(action);
             return {
                 ...state,
-                CarGoodsList: state.CarGoodsList.filter(item => item.id != action.id)
+                CarGoodsList: state.CarGoodsList.filter(item => item.id != action.payload)
             }
         /* 修改商品 */
         case ALTER_GOODS_QTY:

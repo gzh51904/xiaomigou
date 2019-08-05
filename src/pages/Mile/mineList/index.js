@@ -5,7 +5,7 @@ function MineList(){
     return (
         <div>
             <ul className="ul_nav_list">
-                <li className="row-s"><p className="col-8 text-left">
+                <li className="row-s-list"><p className="col-8 text-left">
                     <i className="iconfont">
                         <img src="https://cmsstatic.dataoke.com//wap_new/user/images/icon/wode_icon_like.svg"/>
                     </i>
@@ -17,7 +17,7 @@ function MineList(){
             </ul>
             <div className="hr"></div>
             <ul className="ul_nav_list">
-            <li className="row-s"><p className="col-8 text-left">
+            <li className="row-s-list"><p className="col-8 text-left">
                     <i className="iconfont">
                         <img src="https://cmsstatic.dataoke.com//wap_new/user/images/icon/wode_icon_like.svg"/>
                     </i>

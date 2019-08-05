@@ -17,7 +17,7 @@ class User extends Component{
         return (
             <div>
                 <div className="user_info">
-                    <div className="col-mar">
+                    <div className="col-mar-a">
                     <a className="img"><img src="https://cmsstatic.dataoke.com//wap_new/user/images/user_info_tx.png?v=201907171617"/></a>
                     <div className="info">
                         <p className="name">
@@ -27,7 +27,7 @@ class User extends Component{
                         </p>
                     </div>
                 </div>
-                <a className="iconfont icon-shez setup">设置</a>
+                <a className="icon-shez setup">设置</a>
                 </div>
             </div>
         )

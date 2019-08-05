@@ -3,13 +3,13 @@ import axios from 'axios'
 import Header from '../../components/Header/HomeHeader'
 import Tabbar from '../../components/Tabbar/Tabbar'
 import HomeComment from '../Content/HomeContent'
-import './Home.css'
+
 import GoodsPage from '../../components/GoodsPage/GoodsPage'
 import GoodList from '../../components/Goods/GoodsList'
 import { connect } from 'react-redux'
 
 import { add_info, revision_info, revision_goods_data, add_goods_data } from '../../store/InfoActios.js'
-
+import './Home.css'
 
 // import {  withRouter } from 'react-router-dom';
 // import axios from 'axios'

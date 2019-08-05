@@ -11,7 +11,9 @@ class Collect extends React.Component {
     constructor(){
         super();
         this.state = {
-            isLgn : false
+            isLgn : false,
+            y_height:-49,
+            y_left:-42
         }
     };
     async componentWillMount(){
@@ -29,18 +31,33 @@ class Collect extends React.Component {
             })
         }
     }
+    edit = (val)=>{
+        let y_height = 0;
+        let y_left = 0;
+        if(val == "完成"){
+            y_height= -49;
+            y_left = -43;
+        }else{
+            y_height= 0;
+            y_left = 0;
+        }
+        this.setState({
+            y_height,
+            y_left
+        })
+    }
     render() {
         console.log(this.state.isLgn);
         
         return (
             <div style={{overflow:"hidden"}}>
-                <CollectHeader title="我的收藏"/>
+                <CollectHeader title="我的收藏" name={this.edit}/>
                 {/* <Switch>
                     <Route path={url + "/w"} component={w}/>
                     <Route/>
                 </Switch> */}
                 
-              {this.state.isLgn ? <Y/> : <W/>}
+              {this.state.isLgn ? <Y height={this.state.y_height} left = {this.state.y_left}/> : <W/>}
                 <Tabbar/>
             </div>
         )

@@ -5,14 +5,27 @@ import App from './App';
 import 'weui'
 import { HashRouter as Router, Route, Redirect, Switch, withRouter } from "react-router-dom";
 
+
+import axios from 'axios'
+
+
+import {Provider} from 'react-redux'
+import store from './store'
+
 //引入样式
 import 'antd/dist/antd.css';
-import './css/base.css'
-
-//全局引入swiper样式
+import './css/base.css';
+import zhCN from 'antd/es/locale-provider/zh_CN';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
 import 'swiper/dist/css/swiper.min.css'
+moment.locale('zh-cn');
+//全局引入swiper样式
+
 /*  */
 // /*  */›
+
+
 // import Home from './pages/Home/Home'
 // import Classify from './pages/Classify/Classify'
 // import Collect from './pages/Collect/Collect'
@@ -20,20 +33,12 @@ import 'swiper/dist/css/swiper.min.css'
 // import Mile from './pages/Mile/Mile'
 // import GoodsDetails from './pages/GoodsDetails/GoodsDetails'
 // import GoodsPage from './components/GoodsPage/GoodsPage'
+
 // import Login from './pages/Mile/user/login'
 // import Reg from './pages/Mile/user/reg'
 
-import zhCN from 'antd/es/locale-provider/zh_CN';
-import moment from 'moment';
-import 'moment/locale/zh-cn';
-import axios from 'axios'
 
 
-import {Provider} from 'react-redux'
-import store from './store'
-
-
-moment.locale('zh-cn');
 
 // 请求拦截：发送token
 axios.interceptors.request.use((config)=>{

@@ -57,6 +57,11 @@
 }
 
 .text-b{
-    right: 0;
-    font-size: 14px
+    right: 14px;
+    position: absolute;
+    top: 4px;
+    font-size: 15px;
+    display:inline-block;
+    color: #fff;
+    z-index: 22222;
 }
