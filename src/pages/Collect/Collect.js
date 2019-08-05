@@ -20,7 +20,7 @@ class Collect extends React.Component {
         let {data} = await axios.get('http://localhost:19041/verify')
         let {code,msg} = data;
         if(code==401 && msg=="unauthorized"){
-            console.log("buchenggong",this);
+            // console.log("buchenggong",this);
             
            this.setState({
                isLgn:false
@@ -47,7 +47,7 @@ class Collect extends React.Component {
         })
     }
     render() {
-        console.log(this.state.isLgn);
+        // console.log(this.state.isLgn);
         
         return (
             <div style={{overflow:"hidden"}}>

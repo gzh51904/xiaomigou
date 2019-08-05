@@ -42,7 +42,7 @@ class  Y extends Component{
       inters.push(e.target.value);
     }else{
      inters =  inters.filter(item=>{
-        return e.target.value != item*1
+        return e.target.value !== item*1
       })
     }
     this.setState({
@@ -75,7 +75,7 @@ class  Y extends Component{
   componentWillMount(){
     let intersAll = this.props.intersAll;
     let isShow = ""
-    if(intersAll.length == 0){
+    if(intersAll.length === 0){
       isShow = "block"
     }else{
       isShow = "none"
@@ -87,10 +87,10 @@ class  Y extends Component{
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps);
+    // console.log(nextProps);
     let intersAll = nextProps.intersAll;
     let isShow = ""
-    if(intersAll.length == 0){
+    if(intersAll.length === 0){
       isShow = "block"
     }else{
       isShow = "none"
@@ -100,10 +100,10 @@ class  Y extends Component{
     })
   }
     render(){
-      let {intersAll,inters,isShow} = this.state
+      let {isShow} = this.state
       let bottom = this.props.height
       let left = this.props.left
-      console.log(isShow);
+      // console.log(isShow);
       
       return (
         
