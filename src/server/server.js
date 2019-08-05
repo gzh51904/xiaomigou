@@ -44,6 +44,14 @@ app.use('/api',proxy({
     
 }))
 
+app.use('/fenlei',proxy({
+    target:'https://www.easy-mock.com/',
+    changeOrigin:true,
+    pathRewrite:{
+        '^/fenlei':'/'
+    }
+}))
+
 
 
 // // 代理服务器

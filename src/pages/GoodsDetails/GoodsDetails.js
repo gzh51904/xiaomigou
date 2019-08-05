@@ -103,11 +103,9 @@ class GoodsDetails extends React.Component {
         // console.log(leisi);
 
         const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-        // console.log(this.props.match.params.goodsid)
+       console.log(this)
         let imgAry = JSON.parse(data.data);
-
         let imgUrl = JSON.stringify(imgAry);
-
         sessionStorage.setItem('imgUrl', imgUrl)
 
         this.setState({
@@ -157,7 +155,6 @@ class GoodsDetails extends React.Component {
 
     headelToDetails(item) {
 
-
         this.props.history.push({ pathname: `/goodsdetails/${item.goodsId}/${item.id}`, query: item })
 
         let info = { goodsId: item.goodsId, data: item.id }
@@ -187,7 +184,7 @@ class GoodsDetails extends React.Component {
                 </header>
                 <div style={{ position: 'fixed', top: '5px', left: '20px', width: "40px", height: '40px', backgroundColor: `rgba(234, 234, 234,${1 - this.state.h_op})`, zIndex: 99, lineHeight: '40px', textAlign: "center", borderRadius: '50%' }} onClick={this.headelGoBack}>返回</div>
                 <div className="swiper" id="swiper">
-                    <img src={this.state.data.pic} />
+                    <img src={this.state.data.pic ? this.state.data.pic : ''} />
                 </div>
                 <div className="goods_quan row-s">
 

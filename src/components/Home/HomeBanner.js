@@ -27,7 +27,6 @@ class Banner extends React.Component {
           {this.props.one.map(val => (
             <a
               key={val}
-              href="http://www.alipay.com"
               style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
             >
               <img

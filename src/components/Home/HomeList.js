@@ -3,6 +3,8 @@ import './HomeList.css'
 import Axios from 'axios';
 import Banner from './HomeBanner'
 
+let newdata = '';
+
 class HomeList extends React.Component {
     constructor() {
         super();
@@ -16,7 +18,7 @@ class HomeList extends React.Component {
             timeString: '',
             newdata: ''
         }
-
+this.time = this.time.bind(this)
         // let startTime = new Date(); // 开始时间
         // let endTime = new Date(1563944400000); // 结束时间
         // console.log("毫秒数:", endTime - startTime); // 毫秒数
@@ -31,13 +33,14 @@ class HomeList extends React.Component {
 
         // console.log(data.data.config[0].imgList)
 
-        let time = parseInt((data.data.config[1].downTime.time - new Date()) / 1000);
+        let time1 = parseInt((data.data.config[1].downTime.time - new Date()) / 1000);
+        newdata = time1;
         this.setState({
             newdata_one: data.data.config[0],
             imgList_one: data.data.config[0].imgList,
             newdata_two: data.data.config[1],
             timeString: data.data.config[1].downTime.field,
-            newdata: time,
+            newdata: time1,
             imgList_two: data.data.config[1].imgList[0],
             newdata_three: data.data.config[2],
             imgList_three: data.data.config[2].imgList[0]
@@ -85,7 +88,7 @@ class HomeList extends React.Component {
                 <div className="box_fr">
                     <div className="box_fr_top">
                         <h3>{this.state.newdata_two.name}</h3>
-                        <p><span>{this.state.timeString}</span>
+                        <p style={{width:'100px'}}><span>{this.state.timeString}</span>
                             {this.state.newdata}
                         </p>
                         <img src={this.state.imgList_two} />
