@@ -102,13 +102,14 @@ class  Y extends Component{
     render(){
       let {intersAll,inters,isShow} = this.state
       let bottom = this.props.height
+      let left = this.props.left
       console.log(isShow);
       
       return (
         
         <div className="layout-shoucang">
           <div>
-        <ul>
+        <ul style={{marginLeft:left + "px"}}>
        <li style={{display:isShow}}>
           <div className="default_msg">
           <i className="iconfont"></i>
