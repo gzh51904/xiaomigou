@@ -59,11 +59,11 @@ class GoodsPage extends React.Component {
 
     headelToDetails(data) {
         // console.log(data)
-        sessionStorage.setItem('goodsData',JSON.stringify(data));
-        sessionStorage.setItem('imgAry',JSON.stringify(data.pic))
-        // http://cmsjapi.dataoke.com/api/goods/get-similar-goods?id=21319914&categoryId=50009558&entityId=3&userId=427272  id category_id
-        // sessionStorage.setItem('goodsData', JSON.stringify(data));
-        this.props.history.push({ pathname: `/goodsdetails/${data.category_id}/${data.id}`, query: data })
+        // sessionStorage.setItem('goodsData',JSON.stringify(data));
+        // sessionStorage.setItem('imgAry',JSON.stringify(data.pic))
+        // // http://cmsjapi.dataoke.com/api/goods/get-similar-goods?id=21319914&categoryId=50009558&entityId=3&userId=427272  id category_id
+        // // sessionStorage.setItem('goodsData', JSON.stringify(data));
+        // this.props.history.push({ pathname: `/goodsdetails/${data.category_id}/${data.id}`, query: data })
 
     }
 
