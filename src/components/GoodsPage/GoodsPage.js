@@ -3,6 +3,8 @@ import { node } from 'prop-types';
 import { NavLink } from 'react-router-dom'
 import Axios from 'axios';
 import { tuple } from 'antd/lib/_util/type';
+
+
 class GoodsPage extends React.Component {
     constructor() {
         super();
@@ -10,6 +12,7 @@ class GoodsPage extends React.Component {
             data: {},
             goodsList: [],
             isprice: true,
+            isshow: true,
             navList: [{
                 name: '人气',
                 path: '/renqi'
@@ -20,7 +23,7 @@ class GoodsPage extends React.Component {
                 name: '销量',
                 path: '/xiaoliang'
             }, {
-                name: this.isprice ? '价格(高)' : '价格(低)',
+                name: '价格',
                 path: '/jiage',
             }]
         }
@@ -38,42 +41,41 @@ class GoodsPage extends React.Component {
         } else if (index == 2) {
             px = 'sell'
         } else {
-            // if (this.state.isprice) {
-            //     px = 'price_h';
-            //     this.setState({
-            //         isprice:false
-            //     })
-            // } else {
-            //     px = 'price';
-            //     this.setState({
-            //         isprice:true
-            //     })
-            // }
+            if (this.state.isprice) {
+                px = 'price_h';
+            } else {
+                px = 'price';
+            }
         }
         // console.log(this.state.data.api_cid)
         // http://m.hlxns.com/m/index.php?r=class%2Fcyajaxsub&page=1&cid=20&px=t&cac_id=
         const { data } = await Axios.get(`http://localhost:1904/page/m/index.php?r=class%2Fcyajaxsub&page=1&cid=${this.state.data.api_cid}&px=${px}&cac_id=`)
+
         this.setState({
-            goodsList: data.data.content
+            goodsList: data.data.content,
+            isprice: !this.state.isprice
         })
     }
 
     headelToDetails(data) {
-        // http://cmsjapi.dataoke.com/api/goods/get-similar-goods?id=21319914&categoryId=50009558&entityId=3&userId=427272  id category_id
-        console.log(data);
+        // console.log(data)
+        // sessionStorage.setItem('goodsData',JSON.stringify(data));
+        // sessionStorage.setItem('imgAry',JSON.stringify(data.pic))
+        // // http://cmsjapi.dataoke.com/api/goods/get-similar-goods?id=21319914&categoryId=50009558&entityId=3&userId=427272  id category_id
+        // // sessionStorage.setItem('goodsData', JSON.stringify(data));
         // this.props.history.push({ pathname: `/goodsdetails/${data.category_id}/${data.id}`, query: data })
+
     }
 
     headelGoback() {
-        console.log(this.props);
-        this.props.history.goBack();
+        // console.log(this.props);
+        this.props.history.push('/classify')
     }
 
     async componentWillMount() {
         let goodsPage = JSON.parse(sessionStorage.getItem('goodsPage'));
 
         const { data } = await Axios.get(`http://localhost:1904/page/m/index.php?r=class%2Fcyajaxsub&page=1&cid=${goodsPage.api_cid}&px=t&cac_id=`);
-
 
         this.setState({
             goodsList: data.data.content,
@@ -82,9 +84,7 @@ class GoodsPage extends React.Component {
     }
 
 
-
     render() {
-        console.log(this.state.goodsList[0])
         return (
             <div className="goods_page">
                 <div className="goodslist">
@@ -98,7 +98,7 @@ class GoodsPage extends React.Component {
                         position: 'fixed',
                         top: 0
                     }}>
-                        <span href="javascript:void(0)" className="goHome" style={{
+                        <span className="goHome" style={{
                             left: '10px',
                             position: 'absolute',
                             background: "url('../../imgs/bg.png') -32px 0px no-repeat",
@@ -107,10 +107,11 @@ class GoodsPage extends React.Component {
                             backgroundSize: '287px 800px'
                         }} onClick={this.headelGoback}>返回</span>
 
-                        <a href="javascript:void(0)" className="header_more">
+                        <a className="header_more" style={{color:'white',fontSize:'16px',fontWeight:"bolder"}}>
+                            {this.state.data.name}
                         </a>
                     </header>
-                    <ul style={{ overflow: 'hidden' ,marginTop:'50px'}}>
+                    <ul style={{ overflow: 'hidden', display: this.state.isshow ? 'block' : 'none' ,position: 'fixed',top:'44px',background:'white'}}>
                         {
                             this.state.navList.map((item, index) => {
                                 return <NavLink key={item.name} to={this.props.match.url + item.path} onClick={this.healderLink.bind(this, index)} style={{
@@ -120,7 +121,8 @@ class GoodsPage extends React.Component {
                             })
                         }
                     </ul>
-
+                    {/* <div style={{display: this.state.isshow ? 'block' : 'none' ,textAlign:'center',lineHeight:'200px'}}>正在加载中...</div> */}
+                    <div style={{paddingTop:'85px'}}>
                     {
                         this.state.goodsList.map((item, index) => {
                             return (
@@ -130,13 +132,13 @@ class GoodsPage extends React.Component {
                                         <img src={item.pic} />
                                     </div>
                                     <ul className="teset_box">
-                                        <li><h3>{item.dtitle}</h3></li>
-                                        <li className="list_2">
+                                        <li><h4>{item.d_title}</h4></li>
+                                        <li className="list_2" style={{ textAlign: "left" }}>
                                             <span>天猫价 ¥{item.yuanjia}</span>
-                                            <strong>已经售<i>{(item.xiaoliang / 10000).toFixed(2) + '万'}</i>件</strong>
+                                            <strong>已经售<i>{item.xiaoliang > 10000 ? ((item.xiaoliang / 10000).toFixed(2) + '万') : item.xiaoliang}</i>件</strong>
                                         </li>
-                                        <li className="list_3">
-                                            <span>劵后价 $<i>{item.quanJine}</i></span>
+                                        <li className="list_3" style={{ textAlign: "left" }}>
+                                            <span>劵后价 $<i>{item.jiage}</i></span>
                                             <img></img>
                                         </li>
                                         <p></p>
@@ -145,6 +147,8 @@ class GoodsPage extends React.Component {
                             )
                         })
                     }
+                    </div>
+                    {/* <Spin indicator={antIcon} /> */}
                 </div>
             </div>
         )

@@ -19,7 +19,7 @@ class Classify extends React.Component {
     }
 
     async componentDidMount() {
-        const { data } = await axios.get('https://www.easy-mock.com/mock/5d1f2db0c87ced485ced1cde/example/fenlei');
+        const { data } = await axios.get('http://localhost:1904/aa/index.php?r=class/category&type=1');
         // console.log(data.data.data)
 
 
@@ -30,7 +30,7 @@ class Classify extends React.Component {
 
     async headelToPage(item) {
         // console.log(item.api_cid);
-       
+    //    console.log(item);
         this.props.history.push('/goodspage/renqi');
         sessionStorage.setItem('goodsPage',JSON.stringify(item));
     }
@@ -38,7 +38,7 @@ class Classify extends React.Component {
     render() {
         return (
             <div className="classify">
-                <ClassifyHeader />
+                <ClassifyHeader name="分类" />
                 <div className="a"></div>
                 <div className="cat_fr_box" >
                     <Tabs tabPosition={'left'} style={{ paddingLeft: 0 }}>
@@ -50,7 +50,7 @@ class Classify extends React.Component {
                                             item.floors.map(item => {
                                                 return (
                                                     <div key={item.name} style={{padding:0,margin:0}}>
-                                                        <h4>{item.name}</h4>
+                                                        <h4 style={{textAlign:'left'}}>{item.name}</h4>
                                                         <ul className="main-cat1" >
                                                             {
                                                                 item.list.map(item => {

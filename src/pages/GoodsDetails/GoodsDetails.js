@@ -3,7 +3,6 @@ import './GoodsDetails.scss'
 import axios from 'axios'
 import store from '../../store/index.js'
 import Header from 'antd/lib/calendar/Header';
-import { Flex } from 'antd-mobile';
 // import { Icon, Grid } from 'antd-mobile';
 import GoodsPay from '../../components/Goods/Goods_pay'
 import { connect } from 'react-redux'
@@ -53,11 +52,11 @@ class GoodsDetails extends React.Component {
 
 
     MianscrollHeight(index) {
-        console.log(index);
+        // console.log(index);
         // let offsetTop = 0;
-        // if (index == 1) {
+        // if (index === 1) {
         //     offsetTop = this.state.scrollTop2;
-        // } else if (offsetTop == 2) {
+        // } else if (offsetTop === 2) {
         //     offsetTop = this.state.scrollTop3;
         // } else {
         //     offsetTop = 0;
@@ -86,7 +85,7 @@ class GoodsDetails extends React.Component {
 
     async refreshData() {
 
-        console.log(this.props);
+        // console.log(this.props);
         const tuijian = await axios.get(`http://localhost:1904/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
         // console.log(tuijian.data.data)
 
@@ -103,11 +102,9 @@ class GoodsDetails extends React.Component {
         // console.log(leisi);
 
         const { data } = await axios.get(`http://localhost:1904/api/goods/get-goods-detail-img?goodsId=${this.props.match.params.goodsid}&entityId=3&userId=427272`);
-        // console.log(this.props.match.params.goodsid)
+        //    console.log(this)
         let imgAry = JSON.parse(data.data);
-
         let imgUrl = JSON.stringify(imgAry);
-
         sessionStorage.setItem('imgUrl', imgUrl)
 
         this.setState({
@@ -130,14 +127,25 @@ class GoodsDetails extends React.Component {
         this.props.history.push('/home');
     }
 
-    headerAddCare(item) {
-       
+    headerAddCare(data) {
+
         /* 
         1.  this.props.dispatch({ type: 'ADD_TO_CART', payload: item });
         2.  this.props.add2cart(item)
         */
-       
-        this.props.createAdd2careAction(item)
+       if(this.props.CarReducer.CarGoodsList.length > 0){
+        if(this.props.CarReducer.CarGoodsList.map(item=>{
+            if(item.id === data.id){
+                let lenght = item.lenght;
+                item['lenght'] = lenght++;
+            }
+        }));
+       }
+
+        data['lenght'] = 1;
+        this.props.createAdd2careAction(data);
+        console.log(this.props.CarReducer)
+        console.log(this)
     }
 
     componentWillUnmount() {
@@ -156,7 +164,6 @@ class GoodsDetails extends React.Component {
 
 
     headelToDetails(item) {
-
 
         this.props.history.push({ pathname: `/goodsdetails/${item.goodsId}/${item.id}`, query: item })
 
@@ -179,21 +186,21 @@ class GoodsDetails extends React.Component {
                 <header className='details_header' style={{ background: 'white', position: 'fixed', top: '0px', opacity: this.state.h_op, zIndex: 98 }}>
                     <ul className='title'>
                         <li className='fl_li'></li>
-                        <li style={{ borderBottom: (this.state.index == 0) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('swiper')}>商品</li>
-                        <li style={{ borderBottom: (this.state.index == 1) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('imglist')}>详情</li>
-                        <li style={{ borderBottom: (this.state.index == 2) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('anchors_ant')}>推荐</li>
+                        <li style={{ borderBottom: (this.state.index === 0) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('swiper')}>商品</li>
+                        <li style={{ borderBottom: (this.state.index === 1) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('imglist')}>详情</li>
+                        <li style={{ borderBottom: (this.state.index === 2) ? '4px solid #FC3F78' : 'none' }} onClick={() => this.scrollToAnchor('anchors_ant')}>推荐</li>
                         <li>...</li>
                     </ul>
                 </header>
                 <div style={{ position: 'fixed', top: '5px', left: '20px', width: "40px", height: '40px', backgroundColor: `rgba(234, 234, 234,${1 - this.state.h_op})`, zIndex: 99, lineHeight: '40px', textAlign: "center", borderRadius: '50%' }} onClick={this.headelGoBack}>返回</div>
                 <div className="swiper" id="swiper">
-                    <img src={this.state.data.pic} />
+                    <img src={this.state.data.pic ? this.state.data.pic : ''} />
                 </div>
-                <div className="goods_quan row-s">
+                <div className="goods_quan row-s" style={{ margin: '0' }}>
 
                     <a className="row getGoodsLink" data-dtk-satc="{gid:'21251497',desc:'立即领券-大',name:'DetailGoodsEvent'}" ui-open-taobao="" data-money="10" data-id="21251497">
                         <div className="col-12-8 money">
-                            <p className="p1">
+                            <p className="p1" style={{ paddingTop: '10px' }}>
                                 <span>{this.state.data.quanJine}</span>
                                 元优惠券
                             </p>
@@ -213,7 +220,7 @@ class GoodsDetails extends React.Component {
                 <div id="goodsShopShow">
                     <div className="goods_shop">
                         <div className="info col-mar">
-                            <img ui-lazyload="" src={this.state.SJList.shopLogo} alt="" isload="true" style={{ background: 'rgb(245, 245, 245)' }} />
+                            <img ui-lazyload="" src={this.state.SJList.shopLogo} alt="" isload="true" style={{ background: 'rgb(245, 245, 245)', marginRight: '260px' }} />
                             <div className="text">
                                 <h3>{this.state.SJList.shopName}</h3>
                                 <p className="col-main">
@@ -223,7 +230,7 @@ class GoodsDetails extends React.Component {
                                 </p>
                             </div>
                         </div>
-                        <div className="tab row-s">
+                        <div className="tab row-s" style={{ margin: '0' }}>
                             <div className="col-12-4">宝贝描述:
                                 <span className="iconfont  icon-point_high lv_g" style={{ color: 'red' }}>
                                     {this.state.SJList.dsrScore}
@@ -288,18 +295,17 @@ class GoodsDetails extends React.Component {
                                             <h3 className="bt tianmao">
                                                 {item.dtitle}
                                             </h3>
-                                            <div className="row-s num" style={{ opacity: 1 }}>        <div className="col-12-6">
+                                            <div className="row-s num" style={{ opacity: 1, margin: "0", borderBottom: 'none' }}>        <div className="col-12-6">
                                                 天猫价 ¥{item.yuanjia}
                                             </div>
                                                 <div className="col-12-6 text-right">已售<span className="col-red" style={{ color: 'red' }}>{(item.xiaoliang / 10000).toFixed(2)}万</span>件
                                             </div>
                                             </div>
-                                            <div className="row-s but">
-                                                <div className="col-12-6 money" style={{ color: 'red', fontSize: '14px' }}>
-                                                    <span style={{ fontSize: '12px' }}>券后价&nbsp;¥</span>{(item.yuanjia - item.quanJine).toFixed(2)}
-                                                </div>
-                                                <div className="col-12-6 ">
-                                                    <span className="quan" style={{ color: 'red' }}><i>{item.quanJine}元券</i></span>
+                                            <div className="but" style={{ margin: "0" }}>
+
+                                                <div style={{padding: '0 10px'}}>
+                                                    <strong style={{float:"left" }}>券后价&nbsp;¥<span style={{ color: 'red' }}>{(item.yuanjia - item.quanJine).toFixed(2)}</span></strong>
+                                                    <span className="quan" style={{ color: 'red',float:"right" }}><i>{item.quanJine}元券</i></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -320,11 +326,11 @@ state reducer中的数据通过高阶组件父子传参(this.props获取) ownPro
 mapStateToProps(将state映射到props)有两个参数
 */
 let mapStateToProps = (store, ownProps) => {
-    // console.log(store)
+    
     return {
         /* 此处这里需要用到redux中的什么取什么 */
-        InfoReducer:store.InfoReducer,
-        CarReducer:store.CarReducer
+        InfoReducer: store.InfoReducer,
+        CarReducer: store.CarReducer
     }
 }
 /* 
@@ -366,7 +372,7 @@ let mapDispathTopops = (dispatch, ownProps) => {
 
     return {
         /* 此处如需扩展其他方法 需扩展bindActionCreators */
-        ...bindActionCreators(ActionCreator,dispatch),
+        ...bindActionCreators(ActionCreator, dispatch),
         dispatch
     }
 

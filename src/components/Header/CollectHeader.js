@@ -9,9 +9,9 @@ import './Header.css'
     }
    edit = (a)=>{
             let edit = ''
-        if(a == "完成"){
+        if(a === "完成"){
              edit = "编辑"
-        }else if(a=="编辑"){
+        }else if(a==="编辑"){
              edit = "完成"
         }
         this.setState({

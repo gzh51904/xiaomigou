@@ -13,7 +13,7 @@ let InfoReducer = (state = initState, action) => {
     // console.log(action);
     switch (action.type) {
         case ADD_INFO:
-            console.log(action);
+            // console.log(action);
             return {
                 ...state,
                 info: action.payload

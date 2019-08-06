@@ -137,7 +137,7 @@ class Home extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
         state: state.InfoReducer
     }
