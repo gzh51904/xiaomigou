@@ -11,6 +11,9 @@ import axios from 'axios'
 class Reg extends Component{
     constructor(){
         super();
+        this.state = {
+          isLgn : false
+        }
         this.goto = this.goto.bind(this)
     }
     componentWillMount(){

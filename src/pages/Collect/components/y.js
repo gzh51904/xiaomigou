@@ -110,7 +110,7 @@ class  Y extends Component{
         <div className="layout-shoucang">
           <div>
         <ul style={{marginLeft:left + "px"}}>
-       <li style={{display:isShow}}>
+       <li style={{display:isShow,position:"absolute",left:'25%'}}>
           <div className="default_msg">
           <i className="iconfont"></i>
           暂无收藏

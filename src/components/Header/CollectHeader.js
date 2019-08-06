@@ -23,8 +23,10 @@ import './Header.css'
         let {edit} = this.state
         return (
             <header className='header_sc'>
-            <div style={{height:"100%"}}>{this.props.title}</div>
-            <a className="iconfont icon-zuojiantou" ui-back=""></a>
+            <div style={{height:"100%"}}>
+                <p style={{marginTop:"3%"}}>{this.props.title}</p>
+            </div>
+            {/* <a className="iconfont icon-zuojiantou" ui-back=""></a> */}
             <p className="text-b" onClick={this.edit.bind(this,edit)}>{edit}</p>
             </header>
         );
