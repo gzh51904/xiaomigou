@@ -30,8 +30,6 @@ class Reg extends Component{
           }else{
             let params = this.props.location.params
           localStorage.setItem("Authorization",data.data);
-          console.log(this.props);
-          
           this.props.history.push({
             pathname:params ? params.url : '/mile'
           })
