@@ -33,6 +33,8 @@ class GoodsPage extends React.Component {
     }
 
     async  healderLink(index) {
+
+
         let px = ''
         if (index == 0) {
             px = 't'
@@ -47,14 +49,30 @@ class GoodsPage extends React.Component {
                 px = 'price';
             }
         }
-        // console.log(this.state.data.api_cid)
-        // http://m.hlxns.com/m/index.php?r=class%2Fcyajaxsub&page=1&cid=20&px=t&cac_id=
-        const { data } = await Axios.get(`http://localhost:1904/page/m/index.php?r=class%2Fcyajaxsub&page=1&cid=${this.state.data.api_cid}&px=${px}&cac_id=`)
+
+        let item = JSON.parse(sessionStorage.getItem(this.state.data.api_cid + px));
+        if (item) {
+            this.setState({
+                goodsList: item,
+                isshow: false
+            })
+            return;
+        }
+
+        this.setState({
+            isshow: true
+        })
+
+        const { data } = await Axios.get(`http://localhost:1904/page/m/index.php?r=class%2Fcyajaxsub&page=1&cid=${this.state.data.api_cid}&px=${px}&cac_id=`);
+        
+        sessionStorage.setItem(this.state.data.api_cid + px, JSON.stringify(data.data.content));
 
         this.setState({
             goodsList: data.data.content,
-            isprice: !this.state.isprice
+            isshow: false
         })
+
+
     }
 
     headelToDetails(data) {
@@ -79,7 +97,8 @@ class GoodsPage extends React.Component {
 
         this.setState({
             goodsList: data.data.content,
-            data: goodsPage
+            data: goodsPage,
+            isshow: false
         })
     }
 
@@ -107,11 +126,11 @@ class GoodsPage extends React.Component {
                             backgroundSize: '287px 800px'
                         }} onClick={this.headelGoback}>返回</span>
 
-                        <a className="header_more" style={{color:'white',fontSize:'16px',fontWeight:"bolder"}}>
+                        <a className="header_more" style={{ color: 'white', fontSize: '16px', fontWeight: "bolder" }}>
                             {this.state.data.name}
                         </a>
                     </header>
-                    <ul style={{ overflow: 'hidden', display: this.state.isshow ? 'block' : 'none' ,position: 'fixed',top:'44px',background:'white'}}>
+                    <ul style={{ overflow: 'hidden', position: 'fixed', top: '44px', background: 'white' }}>
                         {
                             this.state.navList.map((item, index) => {
                                 return <NavLink key={item.name} to={this.props.match.url + item.path} onClick={this.healderLink.bind(this, index)} style={{
@@ -121,32 +140,31 @@ class GoodsPage extends React.Component {
                             })
                         }
                     </ul>
-                    {/* <div style={{display: this.state.isshow ? 'block' : 'none' ,textAlign:'center',lineHeight:'200px'}}>正在加载中...</div> */}
-                    <div style={{paddingTop:'85px'}}>
-                    {
-                        this.state.goodsList.map((item, index) => {
-                            return (
-                                <div className="glist" onClick={this.headelToDetails.bind(this, item)} key={index}>
-
-                                    <div className="img_box">
-                                        <img src={item.pic} />
+                    <div style={{ display: this.state.isshow ? 'block' : 'none', textAlign: 'center', lineHeight: '300px' }}>正在加载中...</div>
+                    <div style={{ paddingTop: '85px', display: !this.state.isshow ? 'block' : 'none' }}>
+                        {
+                            this.state.goodsList.map((item, index) => {
+                                return (
+                                    <div className="glist" onClick={this.headelToDetails.bind(this, item)} key={index}>
+                                        <div className="img_box">
+                                            <img src={item.pic} />
+                                        </div>
+                                        <ul className="teset_box">
+                                            <li><h4>{item.d_title}</h4></li>
+                                            <li className="list_2" style={{ textAlign: "left" }}>
+                                                <span>天猫价 ¥{item.yuanjia}</span>
+                                                <strong>已经售<i>{item.xiaoliang > 10000 ? ((item.xiaoliang / 10000).toFixed(2) + '万') : item.xiaoliang}</i>件</strong>
+                                            </li>
+                                            <li className="list_3" style={{ textAlign: "left" }}>
+                                                <span>劵后价 $<i>{item.jiage}</i></span>
+                                                <img></img>
+                                            </li>
+                                            <p></p>
+                                        </ul>
                                     </div>
-                                    <ul className="teset_box">
-                                        <li><h4>{item.d_title}</h4></li>
-                                        <li className="list_2" style={{ textAlign: "left" }}>
-                                            <span>天猫价 ¥{item.yuanjia}</span>
-                                            <strong>已经售<i>{item.xiaoliang > 10000 ? ((item.xiaoliang / 10000).toFixed(2) + '万') : item.xiaoliang}</i>件</strong>
-                                        </li>
-                                        <li className="list_3" style={{ textAlign: "left" }}>
-                                            <span>劵后价 $<i>{item.jiage}</i></span>
-                                            <img></img>
-                                        </li>
-                                        <p></p>
-                                    </ul>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
                     </div>
                     {/* <Spin indicator={antIcon} /> */}
                 </div>

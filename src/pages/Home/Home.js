@@ -36,6 +36,7 @@ class Home extends React.Component {
         this.setState({
             Ary: [...this.state.Ary, ...data.data.list]
         })
+        
     }
 
 
@@ -108,11 +109,18 @@ class Home extends React.Component {
     async componentWillMount() {
 
         /* 首页轮播图 */
-        const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
 
-        this.setState({
-            imgUrlAry: data.data.config
-        })
+        if(sessionStorage.getItem('bannerimg')){
+            this.setState({
+                imgUrlAry: JSON.parse(sessionStorage.getItem('bannerimg'))
+            })
+        }else{
+            const { data } = await axios.get('http://localhost:1904/api/category/product/model-detail-by-model-id?entityId=3&modelId=1&source=3&userId=427272');
+            sessionStorage.setItem('bannerimg',JSON.stringify(data.data.config));
+            this.setState({
+                imgUrlAry: data.data.config
+            })
+        }
     }
 
 

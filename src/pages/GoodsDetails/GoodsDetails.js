@@ -85,6 +85,11 @@ class GoodsDetails extends React.Component {
 
     async refreshData() {
 
+        window.scrollTo({
+            left: 0,
+            top: 0,
+        });
+
         // console.log(this.props);
         const tuijian = await axios.get(`http://localhost:1904/api/goods/get-recommend-goods?id=${this.props.match.params.id}&entityId=3&userId=427272`);
         // console.log(tuijian.data.data)
@@ -112,18 +117,11 @@ class GoodsDetails extends React.Component {
             imgPath: imgAry,
             TJList: tuijian.data.data,
             SJList: shangjia.data.data,
-            // LSList: leisi.data.data
         })
-
-        window.scrollTo({
-            left: 0,
-            top: 0,
-        });
 
     }
 
     headelGoBack() {
-        // this.props.history.goBack();
         this.props.history.push('/home');
     }
 
@@ -155,11 +153,9 @@ class GoodsDetails extends React.Component {
 
 
     componentWillReceiveProps(nextProps, nextContext) {
+        // console.log(nextProps);
+        // console.log(nextContext)
         this.refreshData()
-        this.setState({
-            caseDetail: nextProps.caseDetail
-        });
-        setTimeout(this.changeHeight, 0);
     }
 
 
