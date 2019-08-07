@@ -2,11 +2,30 @@ import React,{Component} from 'react'
 
 import {withRouter} from 'react-router-dom'
 
+import axios from 'axios'
+
 import './user.css'
 class User extends Component{
     constructor(){
         super();
+        this.state = {
+            isLgn : false
+        }
         this.user_goto = this.user_goto.bind(this)
+    }
+    async componentWillMount(){
+        let data = await axios.get('http://localhost:19041/api/find/login');
+        let {code,msg} = data;
+        if(code==401 && msg=="unauthorized"){
+            localStorage.removeItem('Authorization')
+           this.setState({
+               isLgn:false
+           })
+        }else if(code==1000){
+            this.setState({
+                isLgn:true
+            })
+        }
     }
     user_goto(pathname){
         this.props.history.push({
@@ -21,7 +40,7 @@ class User extends Component{
                     <a className="img"><img src="https://cmsstatic.dataoke.com//wap_new/user/images/user_info_tx.png?v=201907171617"/></a>
                     <div className="info">
                         {
-                            localStorage.getItem("Authorization") ?
+                            this.state.isLgn ?
                           <p className='name'>
                               <a className='user_a'>已登录</a>
                           </p>  :  <>
