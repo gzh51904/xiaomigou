@@ -17,7 +17,7 @@ class CommodityList extends Component {
         }
     }
     
-    async componentWillMount() {
+    async componentDidMount() {
         let { data } = await axios.get('http://localhost:1904/aa/index.php?r=nine/listajax&n_id=58&page=1&cac_id=');
         console.log(data);
         
